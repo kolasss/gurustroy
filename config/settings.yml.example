@@ -1,0 +1,16 @@
+default: &default
+  # vk_key: 'vk_key'
+  # vk_secret: 'vk_secret'
+
+development:
+  <<: *default
+  app_host: 'localhost:3000'
+
+test:
+  <<: *default
+  app_host: 'localhost:3000'
+
+production:
+  <<: *default
+  app_host: 'gurustroy.ru'
+  secret_key_base: 'your-key'

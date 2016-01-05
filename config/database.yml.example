@@ -1,0 +1,21 @@
+default: &default
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  pool:     5
+
+development:
+  <<: *default
+  database: gurustroy_dev
+  username: developer
+  password: developer
+
+test:
+  <<: *default
+  database: gurustroy_test
+  username: developer
+  password: developer
+
+production:
+  <<: *default
+  database: gurustroy_production
