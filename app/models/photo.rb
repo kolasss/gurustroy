@@ -17,7 +17,7 @@
 class Photo < ActiveRecord::Base
   belongs_to :post, polymorphic: true
 
-  # mount_uploader :file, AttachmentUploader
+  mount_uploader :file, PhotoUploader
 
   validates :file, :presence => true
   validates :post, :presence => true

@@ -31,11 +31,13 @@ class Order < ActiveRecord::Base
   belongs_to :category
   belongs_to :unit
 
+  has_one :photo, as: :post
+
+  validates :user, :presence => true
+
   enum status: {
     live: 0,
     finished: 10,
     canceled: 20
   }
-
-  validates :user, :presence => true
 end

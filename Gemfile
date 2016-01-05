@@ -3,9 +3,16 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 gem 'rails-api'
 gem 'pg'
-gem 'annotate' #ruby model annotations
+gem 'annotate' # ruby model annotations
 gem 'pundit' # authorization
-gem 'thin'
+gem 'thin' # web server
+
+# Pagination
+gem 'kaminari'
+
+# File upload
+gem 'carrierwave'
+gem 'mini_magick'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
@@ -19,13 +26,13 @@ group :development, :test do
 end
 
 group :development do
-  gem 'guard'
+  gem 'guard' # auto testing
   gem 'guard-minitest'
 end
 
 group :test do
-  gem 'minitest-reporters'
+  gem 'minitest-reporters' # for better test reports in console
   # gem 'mini_backtrace'
   # gem 'webmock' #mocking web requests
-  gem 'simplecov', :require => false
+  gem 'simplecov', :require => false # reports about coverage
 end

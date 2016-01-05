@@ -26,6 +26,8 @@ class Proposal < ActiveRecord::Base
   belongs_to :order
   belongs_to :user
 
+  has_one :photo, as: :post
+
   validates :order, :presence => true
   validates :user, :presence => true
 
