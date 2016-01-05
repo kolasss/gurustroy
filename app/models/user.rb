@@ -12,4 +12,8 @@
 #
 
 class User < ActiveRecord::Base
+  # validates :name, :presence => true
+  # validates :phone, :presence => true
+
+  # has_many :stakes, :dependent => :restrict_with_error
 end

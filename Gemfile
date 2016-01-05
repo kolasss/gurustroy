@@ -5,10 +5,7 @@ gem 'rails-api'
 gem 'pg'
 gem 'annotate' #ruby model annotations
 gem 'pundit' # authorization
-
-group :production do
-  gem 'thin'
-end
+gem 'thin'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
