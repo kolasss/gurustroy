@@ -21,7 +21,7 @@ class Api::V1::OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     if @order.save
-      render json: @order, status: :created, location: @order
+      render json: @order, status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
     end
@@ -54,6 +54,16 @@ class Api::V1::OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:description, :quantity, :unit_id, :price, :status, :category_id)
+      params.require(:order).permit(
+        :description,
+        :quantity,
+        :unit_id,
+        :price,
+        :status,
+        :category_id,
+        # :photo,
+        photo: [],
+        photo_attributes: [:id, :file, :_destroy]
+      )
     end
 end

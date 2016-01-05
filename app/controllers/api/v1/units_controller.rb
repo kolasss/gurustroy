@@ -21,7 +21,7 @@ class Api::V1::UnitsController < ApplicationController
     @unit = Unit.new(unit_params)
 
     if @unit.save
-      render json: @unit, status: :created, location: @unit
+      render json: @unit, status: :created
     else
       render json: @unit.errors, status: :unprocessable_entity
     end

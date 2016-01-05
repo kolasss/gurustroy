@@ -31,9 +31,10 @@ class Order < ActiveRecord::Base
   belongs_to :category
   belongs_to :unit
 
-  has_one :photo, as: :post
+  has_one :photo, as: :post, dependent: :destroy
+  accepts_nested_attributes_for :photo, allow_destroy: true
 
-  validates :user, :presence => true
+  # validates :user, :presence => true
 
   enum status: {
     live: 0,

@@ -21,7 +21,8 @@ class Api::V1::ProposalsController < ApplicationController
     @proposal = Proposal.new(proposal_params)
 
     if @proposal.save
-      render json: @proposal, status: :created, location: @proposal
+      # render json: @proposal, status: :created, location: @proposal
+      render json: @proposal, status: :created
     else
       render json: @proposal.errors, status: :unprocessable_entity
     end
@@ -54,6 +55,12 @@ class Api::V1::ProposalsController < ApplicationController
     end
 
     def proposal_params
-      params.require(:proposal).permit(:order_id, :description, :price, :status, :user_id)
+      params.require(:proposal).permit(
+        :order_id,
+        :description,
+        :price,
+        :status,
+        # :user_id
+      )
     end
 end
