@@ -36,6 +36,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    annotate (2.7.0)
+      activerecord (>= 3.2, < 6.0)
+      rake (~> 10.4)
     ansi (1.5.0)
     arel (6.0.3)
     builder (3.2.2)
@@ -93,6 +96,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pundit (1.0.1)
+      activesupport (>= 3.0.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -156,11 +161,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   byebug
   guard
   guard-minitest
   minitest-reporters
   pg
+  pundit
   rails (= 4.2.5)
   rails-api
   simplecov

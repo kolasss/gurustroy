@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 gem 'rails-api'
 gem 'pg'
+gem 'annotate' #ruby model annotations
+gem 'pundit' # authorization
 
 group :production do
   gem 'thin'
