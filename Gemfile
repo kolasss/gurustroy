@@ -4,7 +4,6 @@ gem 'rails', '4.2.5'
 gem 'rails-api'
 gem 'pg'
 gem 'annotate' # ruby model annotations
-gem 'pundit' # authorization
 gem 'thin' # web server
 
 # Pagination
@@ -36,3 +35,6 @@ group :test do
   # gem 'webmock' #mocking web requests
   gem 'simplecov', :require => false # reports about coverage
 end
+
+gem 'pundit' # authorization
+gem "sorcery" # authentication
