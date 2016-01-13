@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+order_one:
   description: MyString
   quantity: 1.5
-  unit_id: 
-  price: 1
-  status: 1
-  category_id: 
+  unit: shtyki
+  price: 1560
+  status: 0
+  category: instrumenti
 
-two:
+order_two:
   description: MyString
   quantity: 1.5
-  unit_id: 
-  price: 1
-  status: 1
-  category_id: 
+  unit: kg
+  price: 1000
+  status: 10
+  category: kirpichi

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::V1::OrdersControllerTest < ActionController::TestCase
   setup do
-    @order = orders(:one)
+    @order = orders(:order_one)
   end
 
   test "should get index" do
@@ -13,7 +13,13 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
 
   test "should create order" do
     assert_difference('Order.count') do
-      post :create, order: { category_id: @order.category_id, description: @order.description, price: @order.price, quantity: @order.quantity, status: @order.status, unit_id: @order.unit_id }
+      post :create, order: {
+        category_id: @order.category_id,
+        description: @order.description,
+        price: @order.price,
+        quantity: @order.quantity,
+        unit_id: @order.unit_id
+      }
     end
 
     assert_response 201
@@ -25,7 +31,13 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
   end
 
   test "should update order" do
-    put :update, id: @order, order: { category_id: @order.category_id, description: @order.description, price: @order.price, quantity: @order.quantity, status: @order.status, unit_id: @order.unit_id }
+    put :update, id: @order, order: {
+      category_id: @order.category_id,
+      description: @order.description,
+      price: @order.price,
+      quantity: @order.quantity,
+      unit_id: @order.unit_id
+    }
     assert_response 204
   end
 

@@ -59,7 +59,7 @@ class Api::V1::OrdersController < ApplicationController
         :quantity,
         :unit_id,
         :price,
-        :status,
+        # :status,
         :category_id,
         # :photo,
         photo: [],

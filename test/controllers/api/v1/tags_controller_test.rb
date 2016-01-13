@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::V1::TagsControllerTest < ActionController::TestCase
   setup do
-    @tag = tags(:one)
+    @tag = tags(:molotok)
   end
 
   test "should get index" do
@@ -12,8 +12,9 @@ class Api::V1::TagsControllerTest < ActionController::TestCase
   end
 
   test "should create tag" do
+    # debugger
     assert_difference('Tag.count') do
-      post :create, tag: { category: @tag.category, name: @tag.name }
+      post :create, tag: { category_id: @tag.category.id, name: @tag.name }
     end
 
     assert_response 201
@@ -25,7 +26,7 @@ class Api::V1::TagsControllerTest < ActionController::TestCase
   end
 
   test "should update tag" do
-    put :update, id: @tag, tag: { category: @tag.category, name: @tag.name }
+    put :update, id: @tag, tag: { category_id: @tag.category.id, name: @tag.name }
     assert_response 204
   end
 

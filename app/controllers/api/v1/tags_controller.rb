@@ -54,6 +54,6 @@ class Api::V1::TagsController < ApplicationController
     end
 
     def tag_params
-      params.require(:tag).permit(:name, :category)
+      params.require(:tag).permit(:name, :category_id)
     end
 end

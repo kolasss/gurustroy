@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+instrumenti:
+  name: Инструменты
 
-two:
-  name: MyString
+kirpichi:
+  name: Строительные материалы
