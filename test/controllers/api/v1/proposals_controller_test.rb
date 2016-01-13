@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProposalsControllerTest < ActionController::TestCase
+class Api::V1::ProposalsControllerTest < ActionController::TestCase
   setup do
     @proposal = proposals(:one)
   end

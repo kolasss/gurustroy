@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class OrdersControllerTest < ActionController::TestCase
+class Api::V1::OrdersControllerTest < ActionController::TestCase
   setup do
     @order = orders(:one)
   end

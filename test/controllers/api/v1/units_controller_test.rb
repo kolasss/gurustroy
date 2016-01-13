@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UnitsControllerTest < ActionController::TestCase
+class Api::V1::UnitsControllerTest < ActionController::TestCase
   setup do
     @unit = units(:one)
   end
