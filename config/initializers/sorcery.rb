@@ -177,7 +177,7 @@ Rails.application.config.sorcery.configure do |config|
     # specify username attributes, for example: [:username, :email].
     # Default: `[:email]`
     #
-    # user.username_attribute_names =
+    user.username_attribute_names = [:phone]
 
 
     # change *virtual* password attribute, the one which is used until an encrypted one is generated.
@@ -244,7 +244,7 @@ Rails.application.config.sorcery.configure do |config|
     # make this configuration inheritable for subclasses. Useful for ActiveRecord's STI.
     # Default: `false`
     #
-    # user.subclasses_inherit_config =
+    user.subclasses_inherit_config = true
 
 
     # -- remember_me --
@@ -347,7 +347,7 @@ Rails.application.config.sorcery.configure do |config|
     # manually handle how and when email is sent
     # Default: `false`
     #
-    # user.reset_password_mailer_disabled =
+    user.reset_password_mailer_disabled = true
 
 
     # how many seconds before the reset request expires. nil for never expires.

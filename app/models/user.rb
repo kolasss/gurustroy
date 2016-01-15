@@ -27,8 +27,27 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
-  has_many :orders, :dependent => :restrict_with_error
-  has_many :proposals, :dependent => :restrict_with_error
-
   validates :phone, :presence => true
+
+  # STI models list
+  USER_TYPES = [
+    'Customer',
+    'Supplier',
+    'Admin'
+  ]
+
+  USER_TYPES.each do |method|
+    # определяем методы типа customer?, supplier?
+    define_method "#{method.downcase}?" do
+      type == method
+    end
+
+    # определяем методы типа customer!, supplier!
+    define_method "#{method.downcase}!" do
+      new_inst = becomes! method.constantize
+      new_inst.save
+      return new_inst
+    end
+  end
+
 end
