@@ -3,6 +3,7 @@ require 'test_helper'
 class Api::V1::CategoriesControllerTest < ActionController::TestCase
   setup do
     @category = categories(:instrumenti)
+    login_user users(:customer)
   end
 
   test "should get index" do

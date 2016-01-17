@@ -2,7 +2,8 @@ require 'test_helper'
 
 class Api::V1::UsersControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
+    @user = users(:customer)
+    login_user users(:customer)
   end
 
   test "should get index" do
@@ -13,7 +14,12 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, user: { company: @user.company, name: @user.name, phone: @user.phone, type: @user.type }
+      post :create, user: {
+        company: @user.company,
+        name: @user.name,
+        phone: "334234",
+        type: @user.type
+      }
     end
 
     assert_response 201

@@ -3,6 +3,7 @@ require 'test_helper'
 class Api::V1::UnitsControllerTest < ActionController::TestCase
   setup do
     @unit = units(:kg)
+    login_user users(:customer)
   end
 
   test "should get index" do

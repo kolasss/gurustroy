@@ -3,6 +3,7 @@ require 'test_helper'
 class Api::V1::TagsControllerTest < ActionController::TestCase
   setup do
     @tag = tags(:molotok)
+    login_user users(:customer)
   end
 
   test "should get index" do

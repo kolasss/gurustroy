@@ -4,8 +4,16 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
+customer:
   phone: "12345"
+  type: "Customer"
+  name: "Вася"
+  company: "ООО Василий"
+  sms_code: 1234
+  sms_code_expires_at: <%= Time.now + 15.minutes %>
 
-two:
-  phone: "23454"
+supplier:
+  phone: "23456"
+  type: "Supplier"
+  name: "Петя"
+  company: "ООО Петр"

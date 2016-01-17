@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user_id: 
-  info: 
+customer_auth:
+  user: customer
+  info:
+    user_agent: "Test"
 
-two:
-  user_id: 
-  info: 
+supplier_auth:
+  user: supplier
+  info:
+    user_agent: "Test"

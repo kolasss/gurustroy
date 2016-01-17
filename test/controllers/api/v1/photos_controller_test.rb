@@ -3,6 +3,7 @@ require 'test_helper'
 class Api::V1::PhotosControllerTest < ActionController::TestCase
   setup do
     @photo = photos(:one)
+    login_user users(:customer)
   end
 
   test "should get index" do

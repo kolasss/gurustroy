@@ -3,6 +3,7 @@ require 'test_helper'
 class Api::V1::OrdersControllerTest < ActionController::TestCase
   setup do
     @order = orders(:order_one)
+    login_user users(:customer)
   end
 
   test "should get index" do

@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def verify_sms_code code
-    valid = self.sms_code == code && sms_code_expires_at > Time.current
+    valid = self.sms_code.present? && self.sms_code == code && sms_code_not_expired
     update_attributes(sms_code: nil, sms_code_expires_at:nil) if valid
     return valid
   end
@@ -72,6 +72,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+    def sms_code_not_expired
+      sms_code_expires_at.present? && sms_code_expires_at > Time.current
+    end
 
     def set_defaults
       self.type ||= 'Customer'

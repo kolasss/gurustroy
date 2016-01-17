@@ -3,6 +3,7 @@ require 'test_helper'
 class Api::V1::ProposalsControllerTest < ActionController::TestCase
   setup do
     @proposal = proposals(:one)
+    login_user users(:customer)
   end
 
   test "should get index" do
