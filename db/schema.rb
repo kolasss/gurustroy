@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105093441) do
+ActiveRecord::Schema.define(version: 20160117090545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.json     "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       null: false
@@ -77,25 +86,20 @@ ActiveRecord::Schema.define(version: 20160105093441) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "phone",                           null: false
+    t.string   "phone",               null: false
     t.string   "name"
     t.string   "company"
     t.string   "type"
-    t.string   "crypted_password"
-    t.string   "salt"
-    t.string   "remember_me_token"
-    t.datetime "remember_me_token_expires_at"
-    t.string   "reset_password_token"
-    t.datetime "reset_password_token_expires_at"
-    t.datetime "reset_password_email_sent_at"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.string   "sms_code"
+    t.datetime "sms_code_expires_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "users", ["phone"], name: "index_users_on_phone", unique: true, using: :btree
-  add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
+  add_index "users", ["sms_code"], name: "index_users_on_sms_code", using: :btree
 
+  add_foreign_key "authentications", "users"
   add_foreign_key "orders", "categories"
   add_foreign_key "orders", "units"
   add_foreign_key "orders", "users"

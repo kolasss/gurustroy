@@ -28,5 +28,6 @@ module Gurustroy
 
     # load user models
     config.autoload_paths += Dir[Rails.root.join('app', 'models', 'users')]
+    config.autoload_paths += Dir[Rails.root.join('lib')]
   end
 end

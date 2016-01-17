@@ -37,4 +37,4 @@ group :test do
 end
 
 gem 'pundit' # authorization
-gem "sorcery" # authentication
+gem 'jwt' # JSON Web Token

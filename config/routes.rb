@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :users, except: [:new, :edit]
+      # resources :auth, except: [:new, :edit]
+      get 'auth/request_sms'
+      post 'auth/verify'
       resources :tags, except: [:new, :edit]
       resources :categories, except: [:new, :edit]
       resources :units, except: [:new, :edit]

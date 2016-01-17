@@ -1,0 +1,54 @@
+# аутентификация сделана частично
+# по туториалу http://adamalbrecht.com/2015/07/20/authentication-using-json-web-tokens-using-rails-and-react/
+# метод user_not_authenticated определен в application_controller
+
+
+module UserAuthentication
+  extend ActiveSupport::Concern
+
+  def require_login
+    if !logged_in?
+      user_not_authenticated
+    end
+  end
+
+  def logged_in?
+    !!current_user
+  end
+
+  def current_user
+    unless defined?(@current_user)
+      @current_user = login_from_token
+    end
+    @current_user
+  end
+
+  private
+
+    def login_from_token
+      user_not_authenticated unless auth_id_included_in_auth_token?
+      @current_user = User.find_by_auth_id(decoded_auth_token[:auth_id])
+    rescue JWT::VerificationError, JWT::DecodeError, JWT::InvalidIatError
+      user_not_authenticated
+    end
+
+    # Authentication Related Helper Methods
+    # ------------------------------------------------------------
+    def auth_id_included_in_auth_token?
+      http_auth_token && decoded_auth_token && decoded_auth_token[:auth_id]
+    end
+
+    # Raw Authorization Header token (json web token format)
+    # JWT's are stored in the Authorization header using this format:
+    # Bearer somerandomstring.encoded-payload.anotherrandomstring
+    def http_auth_token
+      @http_auth_token ||= if request.headers['Authorization'].present?
+                             request.headers['Authorization'].split(' ').last
+                           end
+    end
+
+    # Decode the authorization header token and return the payload
+    def decoded_auth_token
+      @decoded_auth_token ||= AuthToken.decode(http_auth_token)
+    end
+end

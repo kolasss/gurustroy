@@ -1,6 +1,5 @@
 default: &default
-  # vk_key: 'vk_key'
-  # vk_secret: 'vk_secret'
+  sms_code_expires_in_minutes: 15
 
 development:
   <<: *default
