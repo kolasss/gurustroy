@@ -36,6 +36,7 @@ class Proposal < ActiveRecord::Base
     live: 0,
     accepted: 10,
     rejected: 20,
-    deleted: 30
+    deleted: 30,
+    order_canceled: 40
   }
 end

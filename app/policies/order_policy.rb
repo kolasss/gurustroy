@@ -9,14 +9,18 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    user.customer?
   end
 
   def update?
-    create?
+    user.admin? || (user.customer? && record.user == user)
   end
 
   def destroy?
-    create?
+    user.admin?
+  end
+
+  def cancel?
+    record.live? && update?
   end
 end

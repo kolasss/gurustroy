@@ -1,5 +1,5 @@
 class Api::V1::OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :update, :destroy]
+  before_action :set_order, only: [:show, :update, :destroy, :cancel]
 
   # GET /orders
   # GET /orders.json
@@ -19,8 +19,8 @@ class Api::V1::OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
-    authorize @order
+    authorize Order
+    @order = current_user.orders.new(order_params)
 
     if @order.save
       render json: @order, status: :created
@@ -44,9 +44,19 @@ class Api::V1::OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
-    @order.destroy
+    if @order.destroy
+      head :no_content
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
+  end
 
-    head :no_content
+  def cancel
+    if @order.cancel!
+      head :no_content
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
   end
 
   private
@@ -62,11 +72,10 @@ class Api::V1::OrdersController < ApplicationController
         :quantity,
         :unit_id,
         :price,
-        # :status,
         :category_id,
         # :photo,
-        photo: [],
-        photo_attributes: [:id, :file, :_destroy]
+        # photo: [],
+        # photo_attributes: [:id, :file, :_destroy]
       )
     end
 end

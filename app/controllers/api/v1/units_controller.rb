@@ -13,8 +13,8 @@ class Api::V1::UnitsController < ApplicationController
   # POST /units
   # POST /units.json
   def create
+    authorize Unit
     @unit = Unit.new(unit_params)
-    authorize @unit
 
     if @unit.save
       render json: @unit, status: :created

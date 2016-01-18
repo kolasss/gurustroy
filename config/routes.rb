@@ -14,9 +14,10 @@ Rails.application.routes.draw do
           get :proposals
         end
       end
-      # resources :auth, except: [:new, :edit]
+      resources :orders, except: [:new, :edit] do
+        get :cancel, on: :member
+      end
       resources :tags, except: [:new, :edit]
-      resources :orders, except: [:new, :edit]
       resources :photos, except: [:new, :edit]
       resources :proposals, except: [:new, :edit]
     end

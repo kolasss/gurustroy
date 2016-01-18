@@ -43,10 +43,16 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
   end
 
   test "should destroy order" do
+    login_user users(:admin)
     assert_difference('Order.count', -1) do
       delete :destroy, id: @order
     end
 
+    assert_response 204
+  end
+
+  test "should cancel order" do
+    get :cancel, id: @order
     assert_response 204
   end
 end

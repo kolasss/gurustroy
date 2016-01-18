@@ -31,6 +31,7 @@ class Order < ActiveRecord::Base
   belongs_to :category
   belongs_to :unit
 
+  has_many :proposals, :dependent => :destroy
   has_one :photo, as: :post, dependent: :destroy
   # accepts_nested_attributes_for :photo, allow_destroy: true
 
@@ -43,4 +44,13 @@ class Order < ActiveRecord::Base
     finished: 10,
     canceled: 20
   }
+
+  def cancel!
+    transaction do
+      proposals.each do |proposal|
+        proposal.order_canceled!
+      end
+      canceled!
+    end
+  end
 end

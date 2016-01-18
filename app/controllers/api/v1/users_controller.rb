@@ -19,8 +19,8 @@ class Api::V1::UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    authorize User
     @user = User.new(user_params)
-    authorize @user
 
     if @user.save
       render json: @user, status: :created
