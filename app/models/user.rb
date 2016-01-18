@@ -19,7 +19,7 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :authentications, :dependent => :destroy
+  include UserAuthentication::User
 
   before_validation :set_defaults
 
@@ -50,36 +50,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def generate_sms_code
-    self.sms_code = rand(0000..9999).to_s.rjust(4, "0")
-    self.sms_code_expires_at = Time.current + Rails.application.config.sms_code_expires_in_minutes.minutes
-    save
-  end
-
-  def send_sms_code
-    # TODO сделать отправку кода по смс
-    logger.info "sending code: #{self.sms_code}"
-  end
-
-  def verify_sms_code code
-    valid = self.sms_code.present? && self.sms_code == code && sms_code_not_expired
-    update_attributes(sms_code: nil, sms_code_expires_at:nil) if valid
-    return valid
-  end
-
-  def User.find_by_auth_id auth_id
-    User.joins(:authentications).merge(Authentication.where id: auth_id).first
-  end
-
   def self.policy_class
     UserPolicy
   end
 
   private
-
-    def sms_code_not_expired
-      sms_code_expires_at.present? && sms_code_expires_at > Time.current
-    end
 
     def set_defaults
       self.type ||= 'Customer'

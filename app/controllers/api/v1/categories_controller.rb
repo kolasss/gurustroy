@@ -42,9 +42,11 @@ class Api::V1::CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    @category.destroy
-
-    head :no_content
+    if @category.destroy
+      head :no_content
+    else
+      render json: @category.errors, status: :unprocessable_entity
+    end
   end
 
   private

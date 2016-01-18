@@ -12,7 +12,7 @@ class Api::V1::AuthController < ApplicationController
     end
     @user.generate_sms_code
     @user.send_sms_code
-    head :ok
+    head :no_content
   end
 
   def verify

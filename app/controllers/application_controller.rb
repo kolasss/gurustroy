@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  include UserAuthentication
+  include UserAuthentication::Controller
   include Pundit
 
   before_action :require_login # проверка логина юзера

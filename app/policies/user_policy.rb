@@ -13,7 +13,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    create?
+    create? || user == record
   end
 
   def destroy?

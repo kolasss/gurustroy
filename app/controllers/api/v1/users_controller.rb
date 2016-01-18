@@ -44,9 +44,11 @@ class Api::V1::UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-
-    head :no_content
+    if @user.destroy
+      head :no_content
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
   end
 
   def orders
