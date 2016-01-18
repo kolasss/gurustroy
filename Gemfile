@@ -38,3 +38,5 @@ end
 
 gem 'pundit' # authorization
 gem 'jwt' # JSON Web Token
+
+gem 'pg_search' #PostgreSQL's full text search.

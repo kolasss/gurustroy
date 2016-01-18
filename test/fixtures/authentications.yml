@@ -9,3 +9,8 @@ supplier_auth:
   user: supplier
   info:
     user_agent: "Test"
+
+admin_auth:
+  user: admin
+  info:
+    user_agent: "Test"

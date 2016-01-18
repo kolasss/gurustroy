@@ -5,3 +5,6 @@ kg:
 
 shtyki:
   name: шт.
+
+bez_orderov:
+  name: без заказов

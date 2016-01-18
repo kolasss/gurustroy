@@ -5,3 +5,6 @@ instrumenti:
 
 kirpichi:
   name: Строительные материалы
+
+bez_orderov:
+  name: без заказов

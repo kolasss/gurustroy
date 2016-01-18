@@ -1,12 +1,13 @@
 class ApplicationController < ActionController::API
   include UserAuthentication
-  # include Pundit
+  include Pundit
 
   before_action :require_login # проверка логина юзера
 
-  # after_action :verify_authorized
+  after_action :verify_authorized # проверка что применяется пундит
 
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  # если нет прав на действие
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 

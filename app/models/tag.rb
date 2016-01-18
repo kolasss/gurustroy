@@ -18,8 +18,24 @@
 #
 
 class Tag < ActiveRecord::Base
+  include PgSearch
+
   belongs_to :category
+
+  before_save :format_name
 
   validates :name, :presence => true
   validates :category, :presence => true
+
+  pg_search_scope :search_by_name,
+    :against => :name,
+    :using => {
+      :tsearch => {:prefix => true}
+    }
+
+  private
+
+    def format_name
+      self.name = self.name.mb_chars.downcase.to_s
+    end
 end

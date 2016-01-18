@@ -13,4 +13,9 @@ class Category < ActiveRecord::Base
   has_many :tags, :dependent => :destroy
 
   validates :name, :presence => true
+
+  def Category.find_by_tag_name name
+    name = name.mb_chars.downcase.to_s
+    Category.joins(:tags).merge(Tag.search_by_name name)
+  end
 end

@@ -2,8 +2,8 @@ require 'test_helper'
 
 class Api::V1::CategoriesControllerTest < ActionController::TestCase
   setup do
-    @category = categories(:instrumenti)
-    login_user users(:customer)
+    @category = categories(:bez_orderov)
+    login_user users(:admin)
   end
 
   test "should get index" do
@@ -12,29 +12,24 @@ class Api::V1::CategoriesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:categories)
   end
 
-  # test "should create category" do
-  #   assert_difference('Category.count') do
-  #     post :create, category: { name: @category.name }
-  #   end
+  test "should create category" do
+    assert_difference('Category.count') do
+      post :create, category: { name: @category.name }
+    end
 
-  #   assert_response 201
-  # end
+    assert_response 201
+  end
 
-  # test "should show category" do
-  #   get :show, id: @category
-  #   assert_response :success
-  # end
+  test "should update category" do
+    put :update, id: @category, category: { name: @category.name }
+    assert_response 204
+  end
 
-  # test "should update category" do
-  #   put :update, id: @category, category: { name: @category.name }
-  #   assert_response 204
-  # end
+  test "should destroy category" do
+    assert_difference('Category.count', -1) do
+      delete :destroy, id: @category
+    end
 
-  # test "should destroy category" do
-  #   assert_difference('Category.count', -1) do
-  #     delete :destroy, id: @category
-  #   end
-
-  #   assert_response 204
-  # end
+    assert_response 204
+  end
 end

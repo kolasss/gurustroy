@@ -1,24 +1,24 @@
 class Api::V1::CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :update, :destroy]
+  before_action :set_category, only: [:update, :destroy]
 
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    if params[:q].present?
+      @categories = Category.find_by_tag_name params[:q]
+    else
+      @categories = Category.all
+    end
+    authorize @categories
 
     render json: @categories
-  end
-
-  # GET /categories/1
-  # GET /categories/1.json
-  def show
-    render json: @category
   end
 
   # POST /categories
   # POST /categories.json
   def create
     @category = Category.new(category_params)
+    authorize @category
 
     if @category.save
       render json: @category, status: :created
@@ -51,6 +51,7 @@ class Api::V1::CategoriesController < ApplicationController
 
     def set_category
       @category = Category.find(params[:id])
+      authorize @category
     end
 
     def category_params

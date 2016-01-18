@@ -1,0 +1,3 @@
+class CategoryPolicy < UnitPolicy
+
+end

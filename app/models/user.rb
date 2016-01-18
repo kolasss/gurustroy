@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
 
   def send_sms_code
     # TODO сделать отправку кода по смс
-    p "sending code: #{self.sms_code}"
+    logger.info "sending code: #{self.sms_code}"
   end
 
   def verify_sms_code code

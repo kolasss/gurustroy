@@ -1,5 +1,6 @@
 class Api::V1::AuthController < ApplicationController
   skip_before_action :require_login
+  before_action :skip_authorization
 
   def request_sms
     phone = params[:user][:phone]
@@ -24,6 +25,7 @@ class Api::V1::AuthController < ApplicationController
       auth = @user.authentications.create info: info
       # render token
       response = {
+        user_id: @user.id,
         auth_token: AuthToken.encode({ auth_id: auth.id })
       }
       render json: response

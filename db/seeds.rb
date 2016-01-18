@@ -5,3 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+Unit.create name: 'кг.'
+Unit.create name: 'шт.'
+p 'Стандартные еденицы измерения'
+
+Category.create name: 'Строительные материалы'
+Category.create name: 'Отделочные материалы'
+cat = Category.create name: 'Инструменты'
+p 'Стандартные категории'
+
+cat.tags.create name: 'бензопила'
+cat.tags.create name: 'отвертка'
+cat.tags.create name: 'лопата'
+p 'Тэги для категории Инструменты'

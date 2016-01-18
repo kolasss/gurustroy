@@ -17,3 +17,8 @@ supplier:
   type: "Supplier"
   name: "Петя"
   company: "ООО Петр"
+
+admin:
+  phone: "23451236"
+  type: "Admin"
+  name: "Саша"
