@@ -24,7 +24,7 @@ class Tag < ActiveRecord::Base
 
   before_save :format_name
 
-  validates :name, :presence => true
+  validates :name, :presence => true, uniqueness: true
   validates :category, :presence => true
 
   pg_search_scope :search_by_name,

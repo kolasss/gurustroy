@@ -5,6 +5,7 @@ class Api::V1::OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = Order.all
+    authorize @orders
 
     render json: @orders
   end
@@ -19,6 +20,7 @@ class Api::V1::OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    authorize @order
 
     if @order.save
       render json: @order, status: :created
@@ -51,6 +53,7 @@ class Api::V1::OrdersController < ApplicationController
 
     def set_order
       @order = Order.find(params[:id])
+      authorize @order
     end
 
     def order_params

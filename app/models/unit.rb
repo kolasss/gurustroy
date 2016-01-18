@@ -11,5 +11,5 @@
 class Unit < ActiveRecord::Base
   has_many :orders, :dependent => :restrict_with_error
 
-  validates :name, :presence => true
+  validates :name, :presence => true, uniqueness: true
 end

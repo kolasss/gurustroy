@@ -14,7 +14,7 @@ class Api::V1::CategoriesControllerTest < ActionController::TestCase
 
   test "should create category" do
     assert_difference('Category.count') do
-      post :create, category: { name: @category.name }
+      post :create, category: { name: "Новая категория" }
     end
 
     assert_response 201

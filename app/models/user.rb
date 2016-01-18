@@ -71,6 +71,10 @@ class User < ActiveRecord::Base
     User.joins(:authentications).merge(Authentication.where id: auth_id).first
   end
 
+  def self.policy_class
+    UserPolicy
+  end
+
   private
 
     def sms_code_not_expired

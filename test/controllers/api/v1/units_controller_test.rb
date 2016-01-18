@@ -14,7 +14,7 @@ class Api::V1::UnitsControllerTest < ActionController::TestCase
 
   test "should create unit" do
     assert_difference('Unit.count') do
-      post :create, unit: { name: @unit.name }
+      post :create, unit: { name: "Новая еденица" }
     end
 
     assert_response 201
