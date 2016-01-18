@@ -20,7 +20,6 @@ Rails.application.routes.draw do
       resources :orders, except: [:new, :edit] do
         get :cancel, on: :member
       end
-      resources :photos, except: [:new, :edit]
       resources :proposals, except: [:new, :edit]
     end
   end

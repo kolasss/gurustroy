@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::V1::ProposalsControllerTest < ActionController::TestCase
   setup do
-    @proposal = proposals(:one)
+    @proposal = proposals(:proposal_one)
     login_user users(:customer)
   end
 
