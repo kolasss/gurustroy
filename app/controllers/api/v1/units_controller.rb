@@ -4,8 +4,8 @@ class Api::V1::UnitsController < ApplicationController
   # GET /units
   # GET /units.json
   def index
+    authorize Unit
     @units = Unit.all
-    authorize @units
 
     render json: @units
   end

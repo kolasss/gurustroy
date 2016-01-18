@@ -7,7 +7,10 @@ Rails.application.routes.draw do
       post 'auth/verify'
 
       resources :units, except: [:new, :edit, :show]
-      resources :categories, except: [:new, :edit, :show]
+      resources :categories, except: [:new, :edit, :show] do
+        resources :tags, only: [:index, :create]
+      end
+      resources :tags, only: [:update, :destroy]
       resources :users, except: [:new, :edit] do
         member do
           get :orders
@@ -17,7 +20,6 @@ Rails.application.routes.draw do
       resources :orders, except: [:new, :edit] do
         get :cancel, on: :member
       end
-      resources :tags, except: [:new, :edit]
       resources :photos, except: [:new, :edit]
       resources :proposals, except: [:new, :edit]
     end

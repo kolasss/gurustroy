@@ -1,24 +1,21 @@
 class Api::V1::TagsController < ApplicationController
-  before_action :set_tag, only: [:show, :update, :destroy]
+  before_action :set_tag, only: [:update, :destroy]
+  before_action :set_category, only: [:index, :create]
 
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    authorize Tag
+    @tags = @category.tags.all
 
     render json: @tags
-  end
-
-  # GET /tags/1
-  # GET /tags/1.json
-  def show
-    render json: @tag
   end
 
   # POST /tags
   # POST /tags.json
   def create
-    @tag = Tag.new(tag_params)
+    authorize Tag
+    @tag = @category.tags.new(tag_params)
 
     if @tag.save
       render json: @tag, status: :created
@@ -42,18 +39,25 @@ class Api::V1::TagsController < ApplicationController
   # DELETE /tags/1
   # DELETE /tags/1.json
   def destroy
-    @tag.destroy
-
-    head :no_content
+    if @tag.destroy
+      head :no_content
+    else
+      render json: @tag.errors, status: :unprocessable_entity
+    end
   end
 
   private
 
     def set_tag
       @tag = Tag.find(params[:id])
+      authorize @tag
+    end
+
+    def set_category
+      @category = Category.find(params[:category_id])
     end
 
     def tag_params
-      params.require(:tag).permit(:name, :category_id)
+      params.require(:tag).permit(:name)
     end
 end

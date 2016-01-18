@@ -4,12 +4,12 @@ class Api::V1::CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
+    authorize Category
     if params[:q].present?
       @categories = Category.find_by_tag_name params[:q]
     else
       @categories = Category.all
     end
-    authorize @categories
 
     render json: @categories
   end

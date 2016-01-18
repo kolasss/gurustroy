@@ -4,8 +4,8 @@ class Api::V1::OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
+    authorize Order
     @orders = Order.all
-    authorize @orders
 
     render json: @orders
   end
