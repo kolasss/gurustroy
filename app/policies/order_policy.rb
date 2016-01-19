@@ -13,7 +13,7 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || (user.customer? && record.user == user)
+    record.live? && (user.admin? || (user.customer? && record.user == user))
   end
 
   def destroy?
@@ -21,7 +21,7 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def cancel?
-    record.live? && update?
+    update?
   end
 
   def finish?

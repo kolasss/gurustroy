@@ -25,7 +25,7 @@ Rails.application.routes.draw do
         resources :proposals, only: [:index, :create]
       end
       resources :proposals, only: [:show, :update, :destroy] do
-        # get :cancel, on: :member
+        get :cancel, on: :member
       end
     end
   end

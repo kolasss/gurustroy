@@ -44,4 +44,10 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
 
     assert_response 204
   end
+
+  test "should cancel proposal" do
+    get :cancel, id: @proposal
+
+    assert_response 204
+  end
 end

@@ -9,14 +9,14 @@ class ProposalPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || (user.supplier? && record.user == user)
+    record.live? && (user.admin? || (user.supplier? && record.user == user))
   end
 
   def destroy?
     user.admin?
   end
 
-  # def cancel?
-  #   record.live? && update?
-  # end
+  def cancel?
+    update?
+  end
 end

@@ -1,5 +1,5 @@
 class Api::V1::ProposalsController < ApplicationController
-  before_action :set_proposal, only: [:show, :update, :destroy]
+  before_action :set_proposal, only: [:show, :update, :destroy, :cancel]
   before_action :set_order, only: [:index, :create]
 
   # GET /orders/1/proposals
@@ -47,6 +47,14 @@ class Api::V1::ProposalsController < ApplicationController
   # DELETE /proposals/1.json
   def destroy
     if @proposal.destroy
+      head :no_content
+    else
+      render json: @proposal.errors, status: :unprocessable_entity
+    end
+  end
+
+  def cancel
+    if @proposal.deleted!
       head :no_content
     else
       render json: @proposal.errors, status: :unprocessable_entity

@@ -5,7 +5,11 @@ class Api::V1::OrdersController < ApplicationController
   # GET /orders.json
   def index
     authorize Order
-    @orders = Order.all
+    if params[:category_ids].present?
+      @orders = Order.where(category_id: params[:category_ids])
+    else
+      @orders = Order.all
+    end
 
     render json: @orders
   end
