@@ -3,21 +3,25 @@ class Api::V1::AuthController < ApplicationController
   before_action :skip_authorization
 
   def request_sms
-    phone = params[:user][:phone]
+    phone = params[:user_phone]
     @user = User.find_or_create_by(phone: phone) do |user|
-      user_type = params[:user][:type]
+      user_type = params[:user_type]
       if User::PUBLIC_USER_TYPES.include? user_type
         user.type = user_type
       end
     end
-    @user.generate_sms_code
-    @user.send_sms_code
-    head :no_content
+    if @user.persisted?
+      @user.generate_sms_code
+      @user.send_sms_code
+      head :no_content
+    else
+      render json: { errors: ['Invalid phone'] }, status: :unprocessable_entity
+    end
   end
 
   def verify
-    phone = params[:user][:phone]
-    code = params[:user][:code]
+    phone = params[:user_phone]
+    code = params[:user_code]
     @user = User.find_by phone: phone
     if @user && @user.verify_sms_code(code)
       # generate token

@@ -6,12 +6,12 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
   end
 
   test "should get request_sms" do
-    get :request_sms, user: {phone: @user.phone}
+    get :request_sms, user_phone: @user.phone
     assert_response :success
   end
 
   test "should post verify" do
-    post :verify, user: {phone: @user.phone, code: @user.sms_code}
+    post :verify, user_phone: @user.phone, user_code: @user.sms_code
     assert_response :success
   end
 
