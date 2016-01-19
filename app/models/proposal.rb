@@ -39,4 +39,7 @@ class Proposal < ActiveRecord::Base
     deleted: 30,
     order_canceled: 40
   }
+
+  scope :not_deleted, -> { where.not(status: statuses[:deleted]) }
+
 end

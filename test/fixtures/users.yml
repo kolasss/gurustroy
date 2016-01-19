@@ -45,3 +45,9 @@ admin:
 
 new_customer:
   phone: "33434"
+
+supplier2:
+  phone: "234342256"
+  type: "Supplier"
+  name: "Петя asdasd"
+  company: "ООО Петр asdasd"

@@ -47,10 +47,30 @@ class Order < ActiveRecord::Base
 
   def cancel!
     transaction do
-      proposals.each do |proposal|
+      proposals.not_deleted.each do |proposal|
         proposal.order_canceled!
       end
       canceled!
     end
+  end
+
+  def finish! accepted_proposal_id
+    accepted_proposal_id = accepted_proposal_id.to_i
+    if have_live_proposal_with_id? accepted_proposal_id
+      transaction do
+        proposals.live.each do |proposal|
+          if proposal.id == accepted_proposal_id
+            proposal.accepted!
+          else
+            proposal.rejected!
+          end
+        end
+        finished!
+      end
+    end
+  end
+
+  def have_live_proposal_with_id? proposal_id
+    proposals.live.where(id: proposal_id).present?
   end
 end

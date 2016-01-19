@@ -1,5 +1,5 @@
 class Api::V1::OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :update, :destroy, :cancel]
+  before_action :set_order, only: [:show, :update, :destroy, :cancel, :finish]
 
   # GET /orders
   # GET /orders.json
@@ -59,6 +59,14 @@ class Api::V1::OrdersController < ApplicationController
     end
   end
 
+  def finish
+    if @order.finish! params[:proposal_id]
+      head :no_content
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_order
@@ -72,7 +80,7 @@ class Api::V1::OrdersController < ApplicationController
         :quantity,
         :unit_id,
         :price,
-        :category_id,
+        :category_id
         # :photo,
         # photo: [],
         # photo_attributes: [:id, :file, :_destroy]

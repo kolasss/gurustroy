@@ -55,4 +55,9 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
     get :cancel, id: @order
     assert_response 204
   end
+
+  test "should finish order" do
+    get :finish, id: @order, proposal_id: @order.proposals.first
+    assert_response 204
+  end
 end

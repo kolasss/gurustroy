@@ -18,9 +18,15 @@ Rails.application.routes.draw do
         end
       end
       resources :orders, except: [:new, :edit] do
-        get :cancel, on: :member
+        member do
+          get :cancel
+          get :finish
+        end
+        resources :proposals, only: [:index, :create]
       end
-      resources :proposals, except: [:new, :edit]
+      resources :proposals, only: [:show, :update, :destroy] do
+        # get :cancel, on: :member
+      end
     end
   end
 end

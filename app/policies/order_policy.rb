@@ -23,4 +23,8 @@ class OrderPolicy < ApplicationPolicy
   def cancel?
     record.live? && update?
   end
+
+  def finish?
+    cancel?
+  end
 end
