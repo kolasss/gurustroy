@@ -8,8 +8,9 @@ class Api::V1::OrdersController < ApplicationController
     if params[:category_ids].present?
       @orders = Order.where(category_id: params[:category_ids])
     else
-      @orders = Order.all.includes(:photo)
+      @orders = Order.all
     end
+    @orders = @orders.includes(:photo)
 
     # render json: @orders
   end

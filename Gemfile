@@ -40,3 +40,4 @@ gem 'pundit' # authorization
 gem 'jwt' # JSON Web Token
 
 gem 'pg_search' #PostgreSQL's full text search.
+gem 'file_validators' # file size validator

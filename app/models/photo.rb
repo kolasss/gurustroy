@@ -19,6 +19,8 @@ class Photo < ActiveRecord::Base
 
   mount_uploader :file, PhotoUploader
 
-  validates :file, :presence => true
+  validates :file, :presence => true,
+                   file_size: { less_than: 2.megabytes },
+                   file_content_type: { allow: /^image\/.*/ }
   # validates :post, :presence => true
 end
