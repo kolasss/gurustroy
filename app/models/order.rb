@@ -33,7 +33,7 @@ class Order < ActiveRecord::Base
 
   has_many :proposals, :dependent => :destroy
   has_one :photo, as: :post, dependent: :destroy
-  # accepts_nested_attributes_for :photo, allow_destroy: true
+  accepts_nested_attributes_for :photo, allow_destroy: true
 
   validates :user, :presence => true
   validates :category, :presence => true

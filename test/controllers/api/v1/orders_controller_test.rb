@@ -7,7 +7,7 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    get :index, format: :json
     assert_response :success
     assert_not_nil assigns(:orders)
   end
@@ -20,14 +20,14 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
         price: @order.price,
         quantity: @order.quantity,
         unit_id: @order.unit_id
-      }
+      }, format: :json
     end
 
     assert_response 201
   end
 
   test "should show order" do
-    get :show, id: @order
+    get :show, id: @order, format: :json
     assert_response :success
   end
 

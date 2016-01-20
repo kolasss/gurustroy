@@ -8,16 +8,16 @@ class Api::V1::OrdersController < ApplicationController
     if params[:category_ids].present?
       @orders = Order.where(category_id: params[:category_ids])
     else
-      @orders = Order.all
+      @orders = Order.all.includes(:photo)
     end
 
-    render json: @orders
+    # render json: @orders
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
-    render json: @order
+    # render json: @order
   end
 
   # POST /orders
@@ -27,7 +27,7 @@ class Api::V1::OrdersController < ApplicationController
     @order = current_user.orders.new(order_params)
 
     if @order.save
-      render json: @order, status: :created
+      render :show, status: :created
     else
       render json: @order.errors, status: :unprocessable_entity
     end
@@ -84,10 +84,8 @@ class Api::V1::OrdersController < ApplicationController
         :quantity,
         :unit_id,
         :price,
-        :category_id
-        # :photo,
-        # photo: [],
-        # photo_attributes: [:id, :file, :_destroy]
+        :category_id,
+        photo_attributes: [:id, :file, :_destroy]
       )
     end
 end

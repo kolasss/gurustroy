@@ -20,5 +20,5 @@ class Photo < ActiveRecord::Base
   mount_uploader :file, PhotoUploader
 
   validates :file, :presence => true
-  validates :post, :presence => true
+  # validates :post, :presence => true
 end

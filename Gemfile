@@ -14,7 +14,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
