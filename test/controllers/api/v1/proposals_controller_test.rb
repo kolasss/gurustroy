@@ -7,7 +7,7 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, order_id: orders(:order_one)
+    get :index, order_id: orders(:order_one), format: :json
     assert_response :success
     assert_not_nil assigns(:proposals)
   end
@@ -17,14 +17,14 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
       post :create, order_id: orders(:order_one), proposal: {
         description: @proposal.description,
         price: @proposal.price
-      }
+      }, format: :json
     end
 
     assert_response 201
   end
 
   test "should show proposal" do
-    get :show, id: @proposal
+    get :show, id: @proposal, format: :json
     assert_response :success
   end
 

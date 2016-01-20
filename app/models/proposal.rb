@@ -26,8 +26,8 @@ class Proposal < ActiveRecord::Base
   belongs_to :order
   belongs_to :user
 
-  has_one :photo, as: :post
-  # accepts_nested_attributes_for :photo, allow_destroy: true
+  has_one :photo, as: :post, dependent: :destroy
+  accepts_nested_attributes_for :photo, allow_destroy: true
 
   validates :order, :presence => true
   validates :user, :presence => true
@@ -41,5 +41,4 @@ class Proposal < ActiveRecord::Base
   }
 
   scope :not_deleted, -> { where.not(status: statuses[:deleted]) }
-
 end

@@ -6,15 +6,12 @@ class Api::V1::ProposalsController < ApplicationController
   # GET /orders/1/proposals.json
   def index
     authorize @order
-    @proposals = @order.proposals.all
-
-    render json: @proposals
+    @proposals = @order.proposals.all.includes(:photo)
   end
 
   # GET /proposals/1
   # GET /proposals/1.json
   def show
-    render json: @proposal
   end
 
   # POST /orders/1/proposals
@@ -25,7 +22,7 @@ class Api::V1::ProposalsController < ApplicationController
     @proposal.order = @order
 
     if @proposal.save
-      render json: @proposal, status: :created
+      render :show, status: :created
     else
       render json: @proposal.errors, status: :unprocessable_entity
     end
@@ -75,8 +72,8 @@ class Api::V1::ProposalsController < ApplicationController
     def proposal_params
       params.require(:proposal).permit(
         :description,
-        :price
-        # :photo
+        :price,
+        photo_attributes: [:id, :file, :_destroy]
       )
     end
 end

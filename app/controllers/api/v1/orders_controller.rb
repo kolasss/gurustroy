@@ -11,14 +11,11 @@ class Api::V1::OrdersController < ApplicationController
       @orders = Order.all
     end
     @orders = @orders.includes(:photo)
-
-    # render json: @orders
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
-    # render json: @order
   end
 
   # POST /orders
