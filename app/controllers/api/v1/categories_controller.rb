@@ -10,8 +10,6 @@ class Api::V1::CategoriesController < ApplicationController
     else
       @categories = Category.all
     end
-
-    render json: @categories
   end
 
   # POST /categories
@@ -21,7 +19,7 @@ class Api::V1::CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      render json: @category, status: :created
+      render status: :created
     else
       render json: @category.errors, status: :unprocessable_entity
     end

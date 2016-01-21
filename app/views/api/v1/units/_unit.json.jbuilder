@@ -1,0 +1,1 @@
+json.merge! unit.attributes

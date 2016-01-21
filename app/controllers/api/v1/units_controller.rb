@@ -6,8 +6,6 @@ class Api::V1::UnitsController < ApplicationController
   def index
     authorize Unit
     @units = Unit.all
-
-    render json: @units
   end
 
   # POST /units
@@ -17,7 +15,7 @@ class Api::V1::UnitsController < ApplicationController
     @unit = Unit.new(unit_params)
 
     if @unit.save
-      render json: @unit, status: :created
+      render status: :created
     else
       render json: @unit.errors, status: :unprocessable_entity
     end

@@ -7,14 +7,14 @@ class Api::V1::CategoriesControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    get :index, format: :json
     assert_response :success
     assert_not_nil assigns(:categories)
   end
 
   test "should create category" do
     assert_difference('Category.count') do
-      post :create, category: { name: "Новая категория" }
+      post :create, category: { name: "Новая категория" }, format: :json
     end
 
     assert_response 201

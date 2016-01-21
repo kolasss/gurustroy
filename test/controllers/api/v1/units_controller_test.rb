@@ -7,14 +7,14 @@ class Api::V1::UnitsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    get :index, format: :json
     assert_response :success
     assert_not_nil assigns(:units)
   end
 
   test "should create unit" do
     assert_difference('Unit.count') do
-      post :create, unit: { name: "Новая еденица" }
+      post :create, unit: { name: "Новая еденица" }, format: :json
     end
 
     assert_response 201
