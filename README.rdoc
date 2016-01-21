@@ -1,5 +1,0 @@
-== README
-
-Starting Gurustroy API server
-
-- rails s
