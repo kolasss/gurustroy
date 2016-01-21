@@ -1,5 +1,7 @@
 default: &default
   sms_code_expires_in_minutes: 15
+  smsc_login: 'login'
+  smsc_password: 'password'
 
 development:
   <<: *default

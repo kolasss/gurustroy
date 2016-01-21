@@ -1,3 +1,5 @@
+require 'smsc_api'
+
 module UserAuthentication
   module User
     extend ActiveSupport::Concern
@@ -8,13 +10,20 @@ module UserAuthentication
 
     def generate_sms_code
       self.sms_code = rand(0000..9999).to_s.rjust(4, "0")
-      self.sms_code_expires_at = Time.current + Rails.application.config.sms_code_expires_in_minutes.minutes
+      self.sms_code_expires_at = Time.current + Rails.configuration.sms_code_expires_in_minutes.minutes
       save
     end
 
     def send_sms_code
-      # TODO сделать отправку кода по смс
-      logger.info "sending code: #{self.sms_code}"
+      message = "Gurustroy.ru code: #{self.sms_code}"
+      if Rails.env.production?
+        sms = ::SMSC.new
+        sms_response = sms.send_sms self.phone, message
+        return sms_response[1] > "0"
+      else
+        logger.info message
+        return true
+      end
     end
 
     def verify_sms_code code

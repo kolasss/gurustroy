@@ -12,8 +12,11 @@ class Api::V1::AuthController < ApplicationController
     end
     if @user.persisted?
       @user.generate_sms_code
-      @user.send_sms_code
-      head :no_content
+      if @user.send_sms_code
+        head :no_content
+      else
+        render json: { errors: ['Cant send sms'] }, status: :internal_server_error
+      end
     else
       render json: { errors: ['Invalid phone'] }, status: :unprocessable_entity
     end
@@ -38,3 +41,5 @@ class Api::V1::AuthController < ApplicationController
     end
   end
 end
+
+#TODO сделать возможность для отзыва токена и всех других токенов
