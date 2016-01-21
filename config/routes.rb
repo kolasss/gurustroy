@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         member do
           get :orders
           get :proposals
+          get :change_type
         end
       end
       resources :orders, except: [:new, :edit] do

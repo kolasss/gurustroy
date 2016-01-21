@@ -9,15 +9,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    index?
   end
 
   def update?
-    create? || user == record
+    index? || user == record
   end
 
   def destroy?
-    create?
+    index?
   end
 
   def orders?
@@ -26,5 +26,9 @@ class UserPolicy < ApplicationPolicy
 
   def proposals?
     show? && (record.supplier?)
+  end
+
+  def change_type?
+    index?
   end
 end

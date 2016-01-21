@@ -44,9 +44,19 @@ class User < ActiveRecord::Base
 
     # определяем методы типа customer!, supplier!
     define_method "#{method.downcase}!" do
+      # пересоздаем себя для обработки ошибок
       new_inst = becomes! method.constantize
       new_inst.save
       return new_inst
+    end
+  end
+
+  def change_type new_type
+    if USER_TYPES.include? new_type
+      return self.send("#{new_type.downcase}!")
+    else
+      errors.add :type
+      return self
     end
   end
 

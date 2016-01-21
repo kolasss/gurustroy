@@ -1,5 +1,12 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy, :orders, :proposals]
+  before_action :set_user, only: [
+    :show,
+    :update,
+    :destroy,
+    :orders,
+    :proposals,
+    :change_type
+  ]
 
   # GET /users
   # GET /users.json
@@ -17,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
   # POST /users.json
   def create
     authorize User
-    @user = User.new(user_params)
+    @user = User.new(create_user_params)
 
     if @user.save
       render :show, status: :created
@@ -30,9 +37,8 @@ class Api::V1::UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    # TODO сделать смену типа через модель
 
-    if @user.update(user_params)
+    if @user.update(update_user_params)
       head :no_content
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -57,6 +63,16 @@ class Api::V1::UsersController < ApplicationController
     @proposals = @user.proposals.includes(:photo)
   end
 
+  def change_type
+    @user = @user.change_type params[:user_type]
+
+    if @user.errors.empty?
+      render :show, status: :ok
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
     def set_user
@@ -64,12 +80,20 @@ class Api::V1::UsersController < ApplicationController
       authorize @user
     end
 
-    def user_params
+    def create_user_params
       params.require(:user).permit(
         :phone,
         :name,
         :company,
         :type
+      )
+    end
+
+    def update_user_params
+      params.require(:user).permit(
+        :phone,
+        :name,
+        :company
       )
     end
 end

@@ -61,4 +61,9 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:proposals)
   end
+
+  test "should get change_type" do
+    get :change_type, id: @user, user_type: 'Admin', format: :json
+    assert_response :success
+  end
 end
