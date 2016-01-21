@@ -7,13 +7,13 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    get :index, format: :json
     assert_response :success
     assert_not_nil assigns(:users)
   end
 
   test "should show user" do
-    get :show, id: @user
+    get :show, id: @user, format: :json
     assert_response :success
   end
 
@@ -24,7 +24,7 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
         name: @user.name,
         phone: "334234",
         type: @user.type
-      }
+      }, format: :json
     end
 
     assert_response 201
@@ -50,14 +50,14 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test "should get orders" do
-    get :orders, id: @user
+    get :orders, id: @user, format: :json
     assert_response :success
     assert_not_nil assigns(:orders)
   end
 
   test "should get proposals" do
     @user = users(:supplier)
-    get :proposals, id: @user
+    get :proposals, id: @user, format: :json
     assert_response :success
     assert_not_nil assigns(:proposals)
   end

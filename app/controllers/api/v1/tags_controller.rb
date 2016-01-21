@@ -7,8 +7,6 @@ class Api::V1::TagsController < ApplicationController
   def index
     authorize Tag
     @tags = @category.tags.all
-
-    render json: @tags
   end
 
   # POST /tags
@@ -18,7 +16,7 @@ class Api::V1::TagsController < ApplicationController
     @tag = @category.tags.new(tag_params)
 
     if @tag.save
-      render json: @tag, status: :created
+      render status: :created
     else
       render json: @tag.errors, status: :unprocessable_entity
     end

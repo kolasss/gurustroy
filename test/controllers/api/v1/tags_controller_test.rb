@@ -7,7 +7,7 @@ class Api::V1::TagsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, category_id: categories(:instrumenti)
+    get :index, category_id: categories(:instrumenti), format: :json
     assert_response :success
     assert_not_nil assigns(:tags)
   end
@@ -16,7 +16,7 @@ class Api::V1::TagsControllerTest < ActionController::TestCase
     assert_difference('Tag.count') do
       post :create, category_id: categories(:instrumenti), tag: {
         name: "новый таг"
-      }
+      }, format: :json
     end
 
     assert_response 201

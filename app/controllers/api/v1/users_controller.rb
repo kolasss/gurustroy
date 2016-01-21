@@ -6,14 +6,11 @@ class Api::V1::UsersController < ApplicationController
   def index
     authorize User
     @users = User.all
-
-    render json: @users
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    render json: @user
   end
 
   # POST /users
@@ -23,7 +20,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created
+      render :show, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -33,6 +30,7 @@ class Api::V1::UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    # TODO сделать смену типа через модель
 
     if @user.update(user_params)
       head :no_content
@@ -52,15 +50,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def orders
-    @orders = @user.orders
-
-    render json: @orders
+    @orders = @user.orders.includes(:photo)
   end
 
   def proposals
-    @proposals = @user.proposals
-
-    render json: @proposals
+    @proposals = @user.proposals.includes(:photo)
   end
 
   private
@@ -71,6 +65,11 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:phone, :name, :company, :type)
+      params.require(:user).permit(
+        :phone,
+        :name,
+        :company,
+        :type
+      )
     end
 end
