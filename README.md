@@ -1,5 +1,3 @@
-== README
-
 # Gurustroy API server
 
 ## API docs
