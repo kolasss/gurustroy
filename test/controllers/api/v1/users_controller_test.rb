@@ -22,7 +22,7 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
       post :create, user: {
         company: @user.company,
         name: @user.name,
-        phone: "334234",
+        phone: "79011231212",
         type: @user.type
       }, format: :json
     end

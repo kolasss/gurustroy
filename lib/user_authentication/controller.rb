@@ -24,6 +24,10 @@ module UserAuthentication
       @current_user
     end
 
+    def current_auth_by_token
+      current_user.authentications.find decoded_auth_token[:auth_id]
+    end
+
     private
 
       def login_from_token

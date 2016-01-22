@@ -15,4 +15,15 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get revocate_current" do
+    login_user @user
+    get :revocate_current
+    assert_response :success
+  end
+
+  test "should get revocate_other" do
+    login_user @user
+    get :revocate_other
+    assert_response :success
+  end
 end

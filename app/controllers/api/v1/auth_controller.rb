@@ -1,5 +1,5 @@
 class Api::V1::AuthController < ApplicationController
-  skip_before_action :require_login
+  skip_before_action :require_login, only: [:request_sms, :verify]
   before_action :skip_authorization
 
   def request_sms
@@ -39,6 +39,16 @@ class Api::V1::AuthController < ApplicationController
       render json: { errors: ['Invalid phone/code or code expired'] }, status: :unauthorized
     end
   end
-end
 
-#TODO сделать возможность для отзыва токена и всех других токенов
+  def revocate_current
+    @auth = current_auth_by_token
+    @auth.destroy
+    head :no_content
+  end
+
+  def revocate_other
+    @auths = current_user.authentications.where.not(id: current_auth_by_token.id)
+    @auths.destroy_all
+    head :no_content
+  end
+end
