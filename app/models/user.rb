@@ -22,8 +22,12 @@ class User < ActiveRecord::Base
   include UserAuthentication::User
 
   before_validation :set_defaults
+  before_validation :format_phone
 
-  validates :phone, presence: true, uniqueness: true
+  validates :phone,
+      presence: true,
+      uniqueness: true,
+      phony_plausible: true # validate format
   validates :type, presence: true
 
   # STI models list
@@ -68,5 +72,9 @@ class User < ActiveRecord::Base
 
     def set_defaults
       self.type ||= 'Customer'
+    end
+
+    def format_phone
+      self.phone.gsub!(/[^0-9]/i, '')
     end
 end

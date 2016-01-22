@@ -11,14 +11,13 @@ class Api::V1::AuthController < ApplicationController
       end
     end
     if @user.persisted?
-      @user.generate_sms_code
-      if @user.send_sms_code
+      if @user.generate_sms_code && @user.send_sms_code
         head :no_content
       else
-        render json: { errors: ['Cant send sms'] }, status: :internal_server_error
+        render json: { errors: ['Cant send sms'] }, status: :service_unavailable
       end
     else
-      render json: { errors: ['Invalid phone'] }, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 

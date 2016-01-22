@@ -31,13 +31,12 @@ end
 
 group :test do
   gem 'minitest-reporters' # for better test reports in console
-  # gem 'mini_backtrace'
-  # gem 'webmock' #mocking web requests
   gem 'simplecov', :require => false # reports about coverage
 end
 
 gem 'pundit' # authorization
 gem 'jwt' # JSON Web Token
 
-gem 'pg_search' #PostgreSQL's full text search.
+gem 'pg_search' # PostgreSQL's full text search.
 gem 'file_validators' # file size validator
+gem 'phony_rails' # phone validations
