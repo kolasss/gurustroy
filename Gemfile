@@ -1,10 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.5.1'
 gem 'rails-api'
 gem 'pg'
 gem 'annotate' # ruby model annotations
-gem 'thin' # web server
 
 # Pagination
 gem 'kaminari'
