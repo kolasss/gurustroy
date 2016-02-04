@@ -20,6 +20,7 @@
 
 # SimpleCov report
 /coverage
+
 .byebug_history
 temp
 /public/uploads
