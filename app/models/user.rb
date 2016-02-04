@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  # TODO сделать обработку заказов и предложений при смене типа
   def change_type new_type
     if USER_TYPES.include? new_type
       return self.send("#{new_type.downcase}!")
