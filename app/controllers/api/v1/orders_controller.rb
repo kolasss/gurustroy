@@ -5,12 +5,10 @@ class Api::V1::OrdersController < ApplicationController
   # GET /orders.json
   def index
     authorize Order
-    if params[:category_ids].present?
-      @orders = Order.where(category_id: params[:category_ids])
-    else
-      @orders = Order.all
-    end
-    @orders = @orders.includes(:photo)
+    limit = set_limit_for_query
+    @orders = Order.by_created.includes(:photo).limit(limit)
+    @orders = @orders.offset(params[:offset]) if params[:offset].present?
+    @orders = @orders.where(category_id: params[:category_ids]) if params[:category_ids].present?
   end
 
   # GET /orders/1

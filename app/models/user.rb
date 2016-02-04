@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
       phony_plausible: true # validate format
   validates :type, presence: true
 
+  scope :by_created, -> { order(created_at: :desc) }
+
   # STI models list
   USER_TYPES = [
     'Customer',

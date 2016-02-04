@@ -41,4 +41,5 @@ class Proposal < ActiveRecord::Base
   }
 
   scope :not_deleted, -> { where.not(status: statuses[:deleted]) }
+  scope :by_created, -> { order(created_at: :desc) }
 end

@@ -1,18 +1,13 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [
-    :show,
-    :update,
-    :destroy,
-    :orders,
-    :proposals,
-    :change_type
-  ]
+  before_action :set_user, except: [:index, :create]
 
   # GET /users
   # GET /users.json
   def index
     authorize User
-    @users = User.all
+    limit = set_limit_for_query
+    @users = User.by_created.limit(limit)
+    @users = @users.offset(params[:offset]) if params[:offset].present?
   end
 
   # GET /users/1
@@ -56,11 +51,15 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def orders
-    @orders = @user.orders.includes(:photo)
+    limit = set_limit_for_query
+    @orders = @user.orders.by_created.includes(:photo).limit(limit)
+    @orders = @orders.offset(params[:offset]) if params[:offset].present?
   end
 
   def proposals
-    @proposals = @user.proposals.includes(:photo)
+    limit = set_limit_for_query
+    @proposals = @user.proposals.by_created.includes(:photo).limit(limit)
+    @proposals = @proposals.offset(params[:offset]) if params[:offset].present?
   end
 
   def change_type

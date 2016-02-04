@@ -6,7 +6,9 @@ class Api::V1::ProposalsController < ApplicationController
   # GET /orders/1/proposals.json
   def index
     authorize @order
-    @proposals = @order.proposals.all.includes(:photo)
+    limit = set_limit_for_query
+    @proposals = @order.proposals.by_created.includes(:photo).limit(limit)
+    @proposals = @proposals.offset(params[:offset]) if params[:offset].present?
   end
 
   # GET /proposals/1
@@ -17,6 +19,7 @@ class Api::V1::ProposalsController < ApplicationController
   # POST /orders/1/proposals
   # POST /orders/1/proposals.json
   def create
+    # TODO сделать возможным только одно предложение от пользователя на заказ
     authorize Proposal
     @proposal = current_user.proposals.new(proposal_params)
     @proposal.order = @order

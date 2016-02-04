@@ -45,6 +45,8 @@ class Order < ActiveRecord::Base
     canceled: 20
   }
 
+  scope :by_created, -> { order(created_at: :desc) }
+
   def cancel!
     transaction do
       proposals.not_deleted.each do |proposal|

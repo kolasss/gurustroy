@@ -20,4 +20,8 @@ class ApplicationController < ActionController::API
     def user_not_authenticated
       head :unauthorized
     end
+
+    def set_limit_for_query
+      params[:limit] || Rails.configuration.query_limit
+    end
 end
