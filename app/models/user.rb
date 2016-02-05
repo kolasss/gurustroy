@@ -57,17 +57,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  # TODO сделать обработку заказов и предложений при смене типа
   def change_type new_type
     if USER_TYPES.include? new_type
-      return self.send("#{new_type.downcase}!")
+      transaction do
+        new_inst = self.send("#{new_type.downcase}!")
+        # обработа заказов и предложений после смены типа
+        after_type_change if new_inst.errors.empty?
+        return new_inst
+      end
     else
       errors.add :type
       return self
     end
   end
 
-  def self.policy_class
+  def User.policy_class
     UserPolicy
   end
 
@@ -79,5 +83,9 @@ class User < ActiveRecord::Base
 
     def format_phone
       self.phone.gsub!(/[^0-9]/i, '') if self.phone.present?
+    end
+
+    def after_type_change
+      raise 'Abstract Method'
     end
 end

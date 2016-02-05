@@ -19,4 +19,9 @@
 #
 
 class Admin < User
+
+  private
+
+    def after_type_change
+    end
 end
