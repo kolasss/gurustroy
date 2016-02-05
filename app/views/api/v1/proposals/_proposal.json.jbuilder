@@ -1,2 +1,2 @@
 json.merge! proposal.attributes
-json.photo proposal.photo, :id, :file if proposal.photo.present?
+json.partial! 'api/v1/photos/photo', photo: proposal.photo if proposal.photo.present?

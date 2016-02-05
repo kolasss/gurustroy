@@ -1,2 +1,2 @@
 json.merge! order.attributes
-json.photo order.photo, :id, :file if order.photo.present?
+json.partial! 'api/v1/photos/photo', photo: order.photo if order.photo.present?
