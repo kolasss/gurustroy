@@ -19,11 +19,8 @@ class Api::V1::ProposalsController < ApplicationController
   # POST /orders/1/proposals
   # POST /orders/1/proposals.json
   def create
-    # TODO сделать возможным только одно предложение от пользователя на заказ
     authorize Proposal
-    @proposal = current_user.proposals.new(proposal_params)
-    @proposal.order = @order
-
+    @proposal = Proposal.find_deleted_or_initialize current_user, @order, proposal_params
     if @proposal.save
       render :show, status: :created
     else

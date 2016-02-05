@@ -29,8 +29,9 @@ class Proposal < ActiveRecord::Base
   has_one :photo, as: :post, dependent: :destroy
   accepts_nested_attributes_for :photo, allow_destroy: true
 
-  validates :order, :presence => true
-  validates :user, :presence => true
+  validates :order, presence: true,
+                    uniqueness: {scope: :user_id}
+  validates :user, presence: true
 
   enum status: {
     live: 0,
@@ -42,4 +43,22 @@ class Proposal < ActiveRecord::Base
 
   scope :not_deleted, -> { where.not(status: statuses[:deleted]) }
   scope :by_created, -> { order(created_at: :desc) }
+
+  # initialize new proposal
+  def Proposal.find_deleted_or_initialize user, order, proposal_params
+    proposal = Proposal.where(
+      user_id: user,
+      order_id: order,
+      status: statuses[:deleted]
+    ).first
+    if proposal.present?
+      proposal.assign_attributes proposal_params
+      proposal.status = statuses[:live]
+    else
+      proposal = Proposal.new(proposal_params)
+      proposal.order = order
+      proposal.user = user
+    end
+    return proposal
+  end
 end

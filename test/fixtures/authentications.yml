@@ -33,3 +33,13 @@ admin_auth:
   user: admin
   info:
     user_agent: "Test"
+
+supplier2_auth:
+  user: supplier2
+  info:
+    user_agent: "Test"
+
+supplier3_auth:
+  user: supplier3
+  info:
+    user_agent: "Test"

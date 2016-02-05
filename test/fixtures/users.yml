@@ -51,3 +51,9 @@ supplier2:
   type: "Supplier"
   name: "Петя asdasd"
   company: "ООО Петр asdasd"
+
+supplier3:
+  phone: "71234567895"
+  type: "Supplier"
+  name: "Петя asdasd 2"
+  company: "ООО Петр asdasd 3"

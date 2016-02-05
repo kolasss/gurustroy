@@ -13,6 +13,7 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
   end
 
   test "should create proposal" do
+    login_user users(:supplier3)
     assert_difference('Proposal.count') do
       post :create, order_id: orders(:order_one), proposal: {
         description: @proposal.description,
