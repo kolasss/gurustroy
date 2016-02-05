@@ -17,7 +17,7 @@ class Api::V1::UnitsController < ApplicationController
     if @unit.save
       render status: :created
     else
-      render json: @unit.errors, status: :unprocessable_entity
+      render json: {errors: @unit.errors}, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +29,7 @@ class Api::V1::UnitsController < ApplicationController
     if @unit.update(unit_params)
       head :no_content
     else
-      render json: @unit.errors, status: :unprocessable_entity
+      render json: {errors: @unit.errors}, status: :unprocessable_entity
     end
   end
 
@@ -39,7 +39,7 @@ class Api::V1::UnitsController < ApplicationController
     if @unit.destroy
       head :no_content
     else
-      render json: @unit.errors, status: :unprocessable_entity
+      render json: {errors: @unit.errors}, status: :unprocessable_entity
     end
   end
 

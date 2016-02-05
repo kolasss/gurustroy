@@ -25,7 +25,7 @@ class Api::V1::OrdersController < ApplicationController
     if @order.save
       render :show, status: :created
     else
-      render json: @order.errors, status: :unprocessable_entity
+      render json: {errors: @order.errors}, status: :unprocessable_entity
     end
   end
 
@@ -37,7 +37,7 @@ class Api::V1::OrdersController < ApplicationController
     if @order.update(order_params)
       head :no_content
     else
-      render json: @order.errors, status: :unprocessable_entity
+      render json: {errors: @order.errors}, status: :unprocessable_entity
     end
   end
 
@@ -47,7 +47,7 @@ class Api::V1::OrdersController < ApplicationController
     if @order.destroy
       head :no_content
     else
-      render json: @order.errors, status: :unprocessable_entity
+      render json: {errors: @order.errors}, status: :unprocessable_entity
     end
   end
 
@@ -55,7 +55,7 @@ class Api::V1::OrdersController < ApplicationController
     if @order.cancel!
       head :no_content
     else
-      render json: @order.errors, status: :unprocessable_entity
+      render json: {errors: @order.errors}, status: :unprocessable_entity
     end
   end
 
@@ -63,7 +63,7 @@ class Api::V1::OrdersController < ApplicationController
     if @order.finish! params[:proposal_id]
       head :no_content
     else
-      render json: @order.errors, status: :unprocessable_entity
+      render json: {errors: @order.errors}, status: :unprocessable_entity
     end
   end
 

@@ -24,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       render :show, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {errors: @user.errors}, status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.update(update_user_params)
       head :no_content
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {errors: @user.errors}, status: :unprocessable_entity
     end
   end
 
@@ -46,7 +46,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.destroy
       head :no_content
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {errors: @user.errors}, status: :unprocessable_entity
     end
   end
 
@@ -68,7 +68,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.errors.empty?
       render :show, status: :ok
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {errors: @user.errors}, status: :unprocessable_entity
     end
   end
 

@@ -24,7 +24,7 @@ class Api::V1::ProposalsController < ApplicationController
     if @proposal.save
       render :show, status: :created
     else
-      render json: @proposal.errors, status: :unprocessable_entity
+      render json: {errors: @proposal.errors}, status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class Api::V1::ProposalsController < ApplicationController
     if @proposal.update(proposal_params)
       head :no_content
     else
-      render json: @proposal.errors, status: :unprocessable_entity
+      render json: {errors: @proposal.errors}, status: :unprocessable_entity
     end
   end
 
@@ -46,7 +46,7 @@ class Api::V1::ProposalsController < ApplicationController
     if @proposal.destroy
       head :no_content
     else
-      render json: @proposal.errors, status: :unprocessable_entity
+      render json: {errors: @proposal.errors}, status: :unprocessable_entity
     end
   end
 
@@ -54,7 +54,7 @@ class Api::V1::ProposalsController < ApplicationController
     if @proposal.deleted!
       head :no_content
     else
-      render json: @proposal.errors, status: :unprocessable_entity
+      render json: {errors: @proposal.errors}, status: :unprocessable_entity
     end
   end
 

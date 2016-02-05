@@ -18,7 +18,7 @@ class Api::V1::TagsController < ApplicationController
     if @tag.save
       render status: :created
     else
-      render json: @tag.errors, status: :unprocessable_entity
+      render json: {errors: @tag.errors}, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class Api::V1::TagsController < ApplicationController
     if @tag.update(tag_params)
       head :no_content
     else
-      render json: @tag.errors, status: :unprocessable_entity
+      render json: {errors: @tag.errors}, status: :unprocessable_entity
     end
   end
 
@@ -40,7 +40,7 @@ class Api::V1::TagsController < ApplicationController
     if @tag.destroy
       head :no_content
     else
-      render json: @tag.errors, status: :unprocessable_entity
+      render json: {errors: @tag.errors}, status: :unprocessable_entity
     end
   end
 

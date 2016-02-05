@@ -14,10 +14,10 @@ class Api::V1::AuthController < ApplicationController
       if @user.generate_sms_code && @user.send_sms_code
         head :no_content
       else
-        render json: { errors: ['Cant send sms'] }, status: :service_unavailable
+        render json: {errors: ['Cant send sms']}, status: :service_unavailable
       end
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {errors: @user.errors}, status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class Api::V1::AuthController < ApplicationController
       }
       render json: response
     else
-      render json: { errors: ['Invalid phone/code or code expired'] }, status: :unauthorized
+      render json: {errors: ['Invalid phone/code or code expired']}, status: :unauthorized
     end
   end
 

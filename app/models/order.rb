@@ -58,7 +58,7 @@ class Order < ActiveRecord::Base
 
   def finish! accepted_proposal_id
     accepted_proposal_id = accepted_proposal_id.to_i
-    if have_live_proposal_with_id? accepted_proposal_id
+    if have_live_proposal_with_id?(accepted_proposal_id)
       transaction do
         proposals.live.each do |proposal|
           if proposal.id == accepted_proposal_id
@@ -69,6 +69,9 @@ class Order < ActiveRecord::Base
         end
         finished!
       end
+    else
+      errors.set :proposal_id , :invalid
+      return false
     end
   end
 

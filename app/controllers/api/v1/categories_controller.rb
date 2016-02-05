@@ -21,7 +21,7 @@ class Api::V1::CategoriesController < ApplicationController
     if @category.save
       render status: :created
     else
-      render json: @category.errors, status: :unprocessable_entity
+      render json: {errors: @category.errors}, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +33,7 @@ class Api::V1::CategoriesController < ApplicationController
     if @category.update(category_params)
       head :no_content
     else
-      render json: @category.errors, status: :unprocessable_entity
+      render json: {errors: @category.errors}, status: :unprocessable_entity
     end
   end
 
@@ -43,7 +43,7 @@ class Api::V1::CategoriesController < ApplicationController
     if @category.destroy
       head :no_content
     else
-      render json: @category.errors, status: :unprocessable_entity
+      render json: {errors: @category.errors}, status: :unprocessable_entity
     end
   end
 
