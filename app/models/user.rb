@@ -86,6 +86,6 @@ class User < ActiveRecord::Base
     end
 
     def after_type_change
-      raise 'Abstract Method'
+      raise NotImplementedError
     end
 end
