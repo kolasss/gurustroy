@@ -28,12 +28,19 @@ proposal_one:
   order: order_one
   description: MyText
   price: 122
-  status: 0
+  status: <%= Proposal.statuses[:live] %>
   user: supplier
 
 proposal_two:
   order: order_one
   description: MyTexta dsadssa
   price: 3343
-  status: 0
+  status: <%= Proposal.statuses[:live] %>
   user: supplier2
+
+proposal_deleted:
+  order: order_one
+  description: MyTextaфыв dsadssa
+  price: 123
+  status: <%= Proposal.statuses[:deleted] %>
+  user: supplier4

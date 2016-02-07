@@ -70,12 +70,14 @@ class Order < ActiveRecord::Base
         finished!
       end
     else
-      errors.set :proposal_id , :invalid
+      errors.set :proposal_id , ['invalid']
       return false
     end
   end
 
-  def have_live_proposal_with_id? proposal_id
-    proposals.live.where(id: proposal_id).present?
-  end
+  private
+
+    def have_live_proposal_with_id? proposal_id
+      proposals.live.where(id: proposal_id).present?
+    end
 end

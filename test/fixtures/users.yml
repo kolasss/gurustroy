@@ -55,5 +55,11 @@ supplier2:
 supplier3:
   phone: "71234567895"
   type: "Supplier"
-  name: "Петя asdasd 2"
+  name: "Без предложений в первом заказе"
   company: "ООО Петр asdasd 3"
+
+supplier4:
+  phone: "71234567896"
+  type: "Supplier"
+  name: "С отмененным преложением"
+  company: "ООО Пфыв"

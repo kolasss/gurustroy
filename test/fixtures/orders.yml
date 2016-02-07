@@ -33,7 +33,7 @@ order_one:
   quantity: 1.5
   unit: shtyki
   price: 1560
-  status: 0
+  status: <%= Order.statuses[:live] %>
   category: instrumenti
   user: customer
 
@@ -42,6 +42,6 @@ order_two:
   quantity: 1.5
   unit: kg
   price: 1000
-  status: 10
+  status: <%= Order.statuses[:finished] %>
   category: kirpichi
   user: customer

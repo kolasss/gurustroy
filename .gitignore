@@ -24,3 +24,4 @@
 .byebug_history
 temp
 /public/uploads
+/test/fixtures/files/uploads/tmp

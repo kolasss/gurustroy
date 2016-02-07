@@ -22,4 +22,18 @@ class ActiveSupport::TestCase
   def auth_token auth
     AuthToken.encode({ auth_id: auth.id })
   end
+
+  # for carrierwave file uploads in tests
+  CarrierWave.root = Rails.root.join('test/fixtures/files')
+
+  def after_teardown
+    super
+    CarrierWave.clean_cached_files!(0)
+  end
+end
+
+class CarrierWave::Mount::Mounter
+  def store!
+    # Not storing uploads in the tests
+  end
 end

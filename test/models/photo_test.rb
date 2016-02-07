@@ -20,4 +20,15 @@ class PhotoTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  # assert File.exists?(@order.photo.file.path)
+
+  # assert_difference 'Photo.count', -1 do
+  # @order.update(
+  #   photo_attributes: {
+  #     id: @order.photo.id,
+  #     _destroy: true
+  #   }
+  # )
+  # # assert !File.exists?(order.photo.file.path)
+  # assert_not @order.reload.photo.present?
 end
