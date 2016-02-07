@@ -12,7 +12,7 @@ class Category < ActiveRecord::Base
   has_many :orders, :dependent => :restrict_with_error
   has_many :tags, :dependent => :destroy
 
-  validates :name, :presence => true, uniqueness: true
+  validates :name, presence: true, uniqueness: true
 
   def Category.find_by_tag_name name
     name = name.mb_chars.downcase.to_s

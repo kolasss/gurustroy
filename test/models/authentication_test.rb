@@ -20,7 +20,20 @@
 require 'test_helper'
 
 class AuthenticationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  def setup
+    @auth = Authentication.new(
+      info: {user_agent: 'Test'},
+      user: User.first
+    )
+  end
+
+  test "should be valid" do
+    assert @auth.valid?
+  end
+
+  test "user should be present" do
+    @auth.user = nil
+    assert_not @auth.valid?
+  end
 end
