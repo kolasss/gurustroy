@@ -49,6 +49,11 @@ class ProposalTest < ActiveSupport::TestCase
     assert_not @proposal.valid?
   end
 
+  test "should be uniq in scope order-user" do
+    @proposal.user = users(:supplier)
+    assert_not @proposal.valid?
+  end
+
   test "status should be present" do
     @proposal.status = nil
     assert_not @proposal.valid?
