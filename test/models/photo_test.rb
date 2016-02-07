@@ -17,18 +17,26 @@
 require 'test_helper'
 
 class PhotoTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-  # assert File.exists?(@order.photo.file.path)
 
-  # assert_difference 'Photo.count', -1 do
-  # @order.update(
-  #   photo_attributes: {
-  #     id: @order.photo.id,
-  #     _destroy: true
-  #   }
-  # )
-  # # assert !File.exists?(order.photo.file.path)
-  # assert_not @order.reload.photo.present?
+  def setup
+    @photo = Photo.new(
+      file: Rack::Test::UploadedFile.new(
+        File.join(ActionController::TestCase.fixture_path, '/files/mister.jpg'),
+        'image/jpg'
+      ),
+      post: orders(:order_two)
+    )
+  end
+
+  test "should be valid" do
+    assert @photo.valid?
+    assert File.exists?(@photo.file.path)
+  end
+
+  test "file should be present" do
+    photo = Photo.new(
+      post: orders(:order_two)
+    )
+    assert_not photo.valid?
+  end
 end

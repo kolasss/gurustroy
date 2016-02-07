@@ -102,7 +102,10 @@ class OrderTest < ActiveSupport::TestCase
     assert_difference 'Photo.count' do
       @order.assign_attributes(
         photo_attributes: {
-          file: Rack::Test::UploadedFile.new(File.join(ActionController::TestCase.fixture_path, '/files/mister.jpg'), 'image/jpg')
+          file: Rack::Test::UploadedFile.new(
+            File.join(ActionController::TestCase.fixture_path, '/files/mister.jpg'),
+            'image/jpg'
+          )
         }
       )
       @order.save
