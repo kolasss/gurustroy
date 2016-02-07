@@ -62,8 +62,10 @@ class CategoryTest < ActiveSupport::TestCase
 
   test "method find_by_tag_name should return list with right category" do
     category = categories(:instrumenti)
+    category_not = categories(:kirpichi)
     tag = tags(:molotok)
-
-    assert Category.find_by_tag_name(tag.name).include? category
+    categories = Category.find_by_tag_name(tag.name)
+    assert categories.include? category
+    assert_not categories.include? category_not
   end
 end
