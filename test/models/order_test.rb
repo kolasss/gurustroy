@@ -29,7 +29,6 @@
 require 'test_helper'
 
 class OrderTest < ActiveSupport::TestCase
-  # include ActionDispatch::TestProcess
 
   def setup
     @order = Order.new(
@@ -92,7 +91,6 @@ class OrderTest < ActiveSupport::TestCase
 
   test "associated photo should be destroyed" do
     order = orders(:order_one)
-    photo = photos(:one)
     assert_difference 'Photo.count', -1 do
       order.destroy
     end

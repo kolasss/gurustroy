@@ -20,7 +20,6 @@ one:
   file: photo.jpg
   post: order_one (Order)
 
-# two:
-#   file: MyString
-#   post_id:
-#   post_type: Post
+two:
+  file: photo2.jpg
+  post: winner (Proposal)

@@ -44,3 +44,10 @@ proposal_deleted:
   price: 123
   status: <%= Proposal.statuses[:deleted] %>
   user: supplier4
+
+winner:
+  order: order_two
+  description: MyTextaфыв dsadssa 12
+  price: 900
+  status: <%= Proposal.statuses[:accepted] %>
+  user: supplier4

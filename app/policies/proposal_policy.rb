@@ -5,7 +5,7 @@ class ProposalPolicy < ApplicationPolicy
   end
 
   def create?
-    user.supplier?
+    user.supplier? && record.order.live?
   end
 
   def update?

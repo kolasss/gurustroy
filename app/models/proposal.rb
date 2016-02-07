@@ -32,6 +32,7 @@ class Proposal < ActiveRecord::Base
   validates :order, presence: true,
                     uniqueness: {scope: :user_id}
   validates :user, presence: true
+  validates :status, presence: true
 
   enum status: {
     live: 0,

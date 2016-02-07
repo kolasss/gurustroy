@@ -19,8 +19,8 @@ class Api::V1::ProposalsController < ApplicationController
   # POST /orders/1/proposals
   # POST /orders/1/proposals.json
   def create
-    authorize Proposal
     @proposal = Proposal.find_deleted_or_initialize current_user, @order, proposal_params
+    authorize @proposal
     if @proposal.save
       render :show, status: :created
     else
