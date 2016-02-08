@@ -24,14 +24,6 @@ class User < ActiveRecord::Base
   before_validation :set_defaults
   before_validation :format_phone
 
-  validates :phone,
-      presence: true,
-      uniqueness: true,
-      phony_plausible: true # validate format
-  validates :type, presence: true
-
-  scope :by_created, -> { order(created_at: :desc) }
-
   # STI models list
   USER_TYPES = [
     'Customer',
@@ -41,6 +33,14 @@ class User < ActiveRecord::Base
 
   # user types for signup users
   PUBLIC_USER_TYPES = USER_TYPES - ['Admin']
+
+  validates :phone,
+      presence: true,
+      uniqueness: true,
+      phony_plausible: true # validate format
+  validates :type, inclusion: { in: USER_TYPES }
+
+  scope :by_created, -> { order(created_at: :desc) }
 
   USER_TYPES.each do |method|
     # определяем методы типа customer?, supplier?

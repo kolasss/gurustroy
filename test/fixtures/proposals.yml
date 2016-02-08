@@ -51,3 +51,10 @@ winner:
   price: 900
   status: <%= Proposal.statuses[:accepted] %>
   user: supplier4
+
+rejected:
+  order: order_two
+  description: MyTex21 12taфыв dsadssasa 12
+  price: 1400
+  status: <%= Proposal.statuses[:rejected] %>
+  user: supplier

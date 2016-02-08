@@ -45,3 +45,12 @@ order_two:
   status: <%= Order.statuses[:finished] %>
   category: kirpichi
   user: customer
+
+without_proposals:
+  description: MyStrasding
+  quantity: 45
+  unit: shtyki
+  price: 15160
+  status: <%= Order.statuses[:live] %>
+  category: instrumenti
+  user: customer

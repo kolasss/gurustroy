@@ -107,7 +107,11 @@ class ProposalTest < ActiveSupport::TestCase
   end
 
   test "shoule have scope not_deleted" do
-    assert Proposal.not_deleted
+    live_proposal = proposals(:proposal_one)
+    deleted_proposal = proposals(:proposal_deleted)
+    assert proposals = Proposal.not_deleted
+    assert proposals.include? live_proposal
+    assert_not proposals.include? deleted_proposal
   end
 
   test "shoule have scope by_created" do
