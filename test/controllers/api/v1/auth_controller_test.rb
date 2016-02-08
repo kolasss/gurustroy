@@ -6,6 +6,7 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
   end
 
   test "should get request_sms" do
+    stub_smsc_request
     get :request_sms, user_phone: @user.phone
     assert_response :success
   end

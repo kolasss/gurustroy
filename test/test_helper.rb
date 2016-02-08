@@ -7,6 +7,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+require 'webmock/minitest'
+
 require "minitest/reporters"
 Minitest::Reporters.use!
 
@@ -32,6 +34,17 @@ class ActiveSupport::TestCase
     super
     CarrierWave.clean_cached_files!(0)
   end
+
+  private
+
+    def stub_smsc_request
+      WebMock.stub_request(:get, /smsc.ru\/sys\/send.php/).
+        to_return(:status => 200,
+          :body => '1,1',
+          :headers => {
+            'Content-Type' => 'application/json'
+          })
+    end
 end
 
 class CarrierWave::Mount::Mounter

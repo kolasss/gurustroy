@@ -38,6 +38,7 @@ end
 group :test do
   gem 'minitest-reporters' # for better test reports in console
   gem 'simplecov', :require => false # reports about coverage
+  gem 'webmock' #mocking web requests
 end
 
 gem 'pundit' # authorization
