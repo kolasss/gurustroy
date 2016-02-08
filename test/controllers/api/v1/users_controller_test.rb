@@ -3,21 +3,27 @@ require 'test_helper'
 class Api::V1::UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:customer)
-    login_user users(:admin)
+    @admin = users(:admin)
   end
 
   test "should get index" do
+    require_login {get :index, format: :json}
+    login_user @admin
     get :index, format: :json
     assert_response :success
     assert_not_nil assigns(:users)
   end
 
   test "should show user" do
+    require_login {get :show, id: @user, format: :json}
+    login_user @admin
     get :show, id: @user, format: :json
     assert_response :success
   end
 
   test "should create user" do
+    require_login {post :create, format: :json}
+    login_user @admin
     assert_difference('User.count') do
       post :create, user: {
         company: @user.company,
@@ -31,6 +37,8 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
+    require_login {put :update, id: @user}
+    login_user @admin
     put :update, id: @user, user: {
       company: @user.company,
       name: @user.name,
@@ -42,6 +50,8 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
 
   test "should destroy user" do
     @user = users(:new_customer)
+    require_login {delete :destroy, id: @user}
+    login_user @admin
     assert_difference('User.count', -1) do
       delete :destroy, id: @user
     end
@@ -50,6 +60,8 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test "should get orders" do
+    require_login {get :orders, id: @user, format: :json}
+    login_user @admin
     get :orders, id: @user, format: :json
     assert_response :success
     assert_not_nil assigns(:orders)
@@ -57,12 +69,16 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
 
   test "should get proposals" do
     @user = users(:supplier)
+    require_login {get :proposals, id: @user, format: :json}
+    login_user @admin
     get :proposals, id: @user, format: :json
     assert_response :success
     assert_not_nil assigns(:proposals)
   end
 
   test "should get change_type" do
+    require_login {get :change_type, id: @user, user_type: 'Admin', format: :json}
+    login_user @admin
     get :change_type, id: @user, user_type: 'Admin', format: :json
     assert_response :success
   end

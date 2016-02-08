@@ -17,12 +17,14 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
   end
 
   test "should get revocate_current" do
+    require_login {get :revocate_current}
     login_user @user
     get :revocate_current
     assert_response :success
   end
 
   test "should get revocate_other" do
+    require_login {get :revocate_other}
     login_user @user
     get :revocate_other
     assert_response :success

@@ -19,7 +19,7 @@ module UserAuthentication
 
     def current_user
       unless defined?(@current_user)
-        @current_user = login_from_token
+        login_from_token
       end
       @current_user
     end

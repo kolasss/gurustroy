@@ -45,6 +45,11 @@ class ActiveSupport::TestCase
             'Content-Type' => 'application/json'
           })
     end
+
+    def require_login(&block)
+      yield
+      assert_response 401
+    end
 end
 
 class CarrierWave::Mount::Mounter
