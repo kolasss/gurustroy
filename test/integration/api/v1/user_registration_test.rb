@@ -33,7 +33,7 @@ class UserRegistrationTest < ActionDispatch::IntegrationTest
     auth_token = user_info['auth_token']
 
     # with wrong token
-    headers = {Authorization: "asdf"}
+    headers = {Authorization: "wrong"}
     get "/api/v1/users/#{user_id}"
     assert_response :unauthorized
 
@@ -61,7 +61,9 @@ class UserRegistrationTest < ActionDispatch::IntegrationTest
     headers = auth_header first_user
     user_name = 'Иван Васильевич'
     user_company = 'ОАО Нефть'
-    put "/api/v1/users/#{second_user.id}", {user: {name: user_name, company: user_company}}, headers
+    put "/api/v1/users/#{second_user.id}", {
+        user: {name: user_name, company: user_company}
+      }, headers
     assert_response :forbidden
     # checking
     get "/api/v1/users/#{second_user.id}", nil, headers

@@ -14,6 +14,15 @@ class Api::V1::CategoriesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:categories)
   end
 
+  test "should search by tags in index" do
+    login_user @admin
+    tag = tags(:molotok)
+    get :index, q: tag.name, format: :json
+    assert_response :success
+    assert_not_nil assigns(:categories)
+    assert_match tag.category.name, response.body
+  end
+
   test "should create category" do
     require_login {post :create, format: :json}
     login_user @admin
