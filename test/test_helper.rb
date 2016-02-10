@@ -57,3 +57,14 @@ class CarrierWave::Mount::Mounter
     # Not storing uploads in the tests
   end
 end
+
+class ActionDispatch::IntegrationTest
+
+  private
+
+    def auth_header user
+      auth = user.authentications.first
+      header_text = "Bearer #{auth_token auth}"
+      {Authorization: header_text}
+    end
+end
