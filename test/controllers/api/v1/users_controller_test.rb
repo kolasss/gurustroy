@@ -36,6 +36,19 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     assert_response 201
   end
 
+  test "should show error on create user" do
+    login_user @admin
+    assert_no_difference('User.count') do
+      post :create, user: {
+        company: @user.company,
+        name: @user.name
+      }, format: :json
+    end
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
+  end
+
   test "should update user" do
     require_login {put :update, id: @user}
     login_user @admin
@@ -48,6 +61,15 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     assert_response 204
   end
 
+  test "should show error on update user" do
+    login_user @admin
+    put :update, id: @user, user: {
+      phone: nil
+    }
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
+  end
+
   test "should destroy user" do
     @user = users(:new_customer)
     require_login {delete :destroy, id: @user}
@@ -57,6 +79,16 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     end
 
     assert_response 204
+  end
+
+  test "should show error on destroy user" do
+    login_user @admin
+    assert_no_difference('User.count') do
+      delete :destroy, id: @user
+    end
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 
   test "should get orders" do

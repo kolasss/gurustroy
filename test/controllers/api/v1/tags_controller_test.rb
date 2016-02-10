@@ -26,6 +26,18 @@ class Api::V1::TagsControllerTest < ActionController::TestCase
     assert_response 201
   end
 
+  test "should show error on create tag" do
+    login_user @admin
+    assert_no_difference('Tag.count') do
+      post :create, category_id: categories(:instrumenti), tag: {
+        name: nil
+      }, format: :json
+    end
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
+  end
+
   test "should update tag" do
     require_login {put :update, id: @tag}
     login_user @admin
@@ -34,6 +46,16 @@ class Api::V1::TagsControllerTest < ActionController::TestCase
     }
     assert_response 204
   end
+
+  test "should show error on update tag" do
+    login_user @admin
+    put :update, id: @tag, tag: {
+      name: nil
+    }
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
+  end
+
 
   test "should destroy tag" do
     require_login {delete :destroy, id: @tag}

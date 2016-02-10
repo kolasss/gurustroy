@@ -27,6 +27,18 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
     assert_response 201
   end
 
+  test "should show error on create proposal" do
+    login_user @supplier
+    assert_no_difference('Proposal.count') do
+      post :create, order_id: orders(:order_one), proposal: {
+        price: @proposal.price
+      }, format: :json
+    end
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
+  end
+
   test "should show proposal" do
     require_login {get :show, id: @proposal, format: :json}
     login_user @supplier
@@ -42,6 +54,17 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
       price: @proposal.price
     }
     assert_response 204
+  end
+
+  test "should show error on update proposal" do
+    login_user @supplier
+    put :update, id: @proposal, proposal: {
+      photo_attributes: {
+        file: nil
+      }
+    }
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 
   test "should destroy proposal" do

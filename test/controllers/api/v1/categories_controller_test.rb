@@ -33,11 +33,28 @@ class Api::V1::CategoriesControllerTest < ActionController::TestCase
     assert_response 201
   end
 
+  test "should show error on create category" do
+    login_user @admin
+    assert_no_difference('Category.count') do
+      post :create, category: { name: nil }, format: :json
+    end
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
+  end
+
   test "should update category" do
     require_login {put :update, id: @category}
     login_user @admin
     put :update, id: @category, category: { name: @category.name }
     assert_response 204
+  end
+
+  test "should show error on update category" do
+    login_user @admin
+    put :update, id: @category, category: { name: nil }
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 
   test "should destroy category" do
