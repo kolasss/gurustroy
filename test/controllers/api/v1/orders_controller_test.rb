@@ -30,6 +30,19 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
     assert_response 201
   end
 
+  test "should show error on create order" do
+    login_user @customer
+    assert_no_difference('Order.count') do
+      post :create, order: {
+        quantity: @order.quantity,
+        unit_id: @order.unit_id
+      }, format: :json
+    end
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
+  end
+
   test "should show order" do
     require_login {get :show, id: @order, format: :json}
     login_user @customer
@@ -48,6 +61,17 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
       unit_id: @order.unit_id
     }
     assert_response 204
+  end
+
+  test "should show error on update order" do
+    login_user @customer
+    put :update, id: @order, order: {
+      category_id: 1,
+      unit_id: 'asd'
+    }
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 
   test "should destroy order" do
@@ -72,5 +96,12 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
     login_user @customer
     get :finish, id: @order, proposal_id: @order.proposals.first
     assert_response 204
+  end
+
+  test "should show error on finish order" do
+    login_user @customer
+    get :finish, id: @order, proposal_id: 'asd'
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 end

@@ -24,11 +24,28 @@ class Api::V1::UnitsControllerTest < ActionController::TestCase
     assert_response 201
   end
 
+  test "should show error on create unit" do
+    login_user @admin
+    assert_no_difference('Unit.count') do
+      post :create, unit: { name: nil }, format: :json
+    end
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
+  end
+
   test "should update unit" do
     require_login {put :update, id: @unit}
     login_user @admin
     put :update, id: @unit, unit: { name: @unit.name }
     assert_response 204
+  end
+
+  test "should show error on update unit" do
+    login_user @admin
+    put :update, id: @unit, unit: { name: nil }
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 
   test "should destroy unit" do
@@ -39,5 +56,16 @@ class Api::V1::UnitsControllerTest < ActionController::TestCase
     end
 
     assert_response 204
+  end
+
+  test "should show error on destroy unit" do
+    login_user @admin
+    unit = units(:shtyki)
+    assert_no_difference('Unit.count', -1) do
+      delete :destroy, id: unit
+    end
+
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 end
