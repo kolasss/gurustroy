@@ -8,14 +8,14 @@ module UserAuthentication
       has_many :authentications, :dependent => :destroy
     end
 
-    def generate_sms_code
-      self.sms_code = rand(0000..9999).to_s.rjust(4, "0")
-      self.sms_code_expires_at = Time.current + Rails.configuration.sms_code_expires_in_minutes.minutes
-      save
-    end
-
-    def send_sms_code
-      SendSmsCodeJob.perform_later self.phone, self.sms_code
+    def request_sms_code
+      if sms_code_not_expired
+        errors.add :sms_code, 'not expired'
+        return false
+      else
+        generate_sms_code
+        send_sms_code
+      end
     end
 
     def verify_sms_code code
@@ -31,6 +31,16 @@ module UserAuthentication
     end
 
     private
+
+      def generate_sms_code
+        self.sms_code = rand(0000..9999).to_s.rjust(4, "0")
+        self.sms_code_expires_at = Time.current + Rails.configuration.sms_code_expires_in_minutes.minutes
+        save
+      end
+
+      def send_sms_code
+        SendSmsCodeJob.perform_later self.phone, self.sms_code
+      end
 
       def sms_code_not_expired
         sms_code_expires_at.present? && sms_code_expires_at > Time.current

@@ -46,20 +46,40 @@ class UserAuthTest < ActiveSupport::TestCase
     end
   end
 
-  test "method generate_sms_code" do
+  test "method request_sms_code" do
+    stub_smsc_request
     @user.save
-    @user.generate_sms_code
-    sms_code = @user.sms_code
-    sms_code_expires_at = @user.sms_code_expires_at
-    @user.generate_sms_code
-    assert_not_equal sms_code, @user.sms_code
-    assert_not_equal sms_code_expires_at, @user.sms_code_expires_at
+    assert_nil @user.sms_code
+    assert_nil @user.sms_code_expires_at
+    @user.request_sms_code
+    assert_not_nil @user.sms_code
+    assert_not_nil @user.sms_code_expires_at
   end
 
-  test "method send_sms_code" do
+  test "method request_sms_code should return errors if sms code not expired" do
     stub_smsc_request
-    user = users(:customer)
-    assert user.send_sms_code
+    @user.save
+    @user.request_sms_code
+    sms_code = @user.sms_code
+    sms_code_expires_at = @user.sms_code_expires_at
+
+    assert_not @user.reload.request_sms_code
+    assert @user.errors.messages.include? :sms_code
+    assert_equal sms_code, @user.sms_code
+    # какойто баг: assert_equal не работает для ActiveSupport::TimeWithZone
+    assert_in_delta sms_code_expires_at, @user.sms_code_expires_at, 1.second
+  end
+
+  test "method request_sms_code should generate new code after sms code expires" do
+    stub_smsc_request
+    @user.save
+    @user.request_sms_code
+    sms_code = @user.sms_code
+    sms_code_expires_at = @user.sms_code_expires_at
+    @user.update_attribute :sms_code_expires_at, Time.current
+    assert @user.request_sms_code
+    assert_not_equal sms_code, @user.reload.sms_code
+    assert_not_equal sms_code_expires_at, @user.sms_code_expires_at
   end
 
   test "method verify_sms_code should verify sms code" do

@@ -10,13 +10,8 @@ class Api::V1::AuthController < ApplicationController
         user.type = user_type
       end
     end
-    if @user.persisted?
-      # TODO сделать защиту от спама реквестов
-      if @user.generate_sms_code && @user.send_sms_code
-        head :no_content
-      else
-        render json: {errors: ['Cant send sms']}, status: :service_unavailable
-      end
+    if @user.persisted? && @user.request_sms_code
+      head :no_content
     else
       render json: {errors: @user.errors}, status: :unprocessable_entity
     end

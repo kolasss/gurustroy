@@ -7,8 +7,18 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
 
   test "should get request_sms" do
     stub_smsc_request
-    get :request_sms, user_phone: @user.phone
+    user = users(:supplier)
+    get :request_sms, user_phone: user.phone
     assert_response :success
+  end
+
+  test "should show error on request_sms if sms code not expired" do
+    stub_smsc_request
+    user = users(:supplier)
+    get :request_sms, user_phone: user.phone
+    get :request_sms, user_phone: user.phone
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 
   test "should post verify" do

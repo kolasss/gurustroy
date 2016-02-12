@@ -9,9 +9,9 @@ class SendSmsCodeJobTest < ActiveJob::TestCase
   end
 
   test 'sens sms job scheduling' do
-    user = users(:customer)
-    assert_enqueued_with(job: SendSmsCodeJob, args: [user.phone, user.sms_code]) do
-      user.send_sms_code
+    user = users(:supplier)
+    assert_enqueued_with(job: SendSmsCodeJob) do
+      user.request_sms_code
     end
   end
 end
