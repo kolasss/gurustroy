@@ -11,6 +11,7 @@ class Api::V1::AuthController < ApplicationController
       end
     end
     if @user.persisted?
+      # TODO сделать защиту от спама реквестов
       if @user.generate_sms_code && @user.send_sms_code
         head :no_content
       else

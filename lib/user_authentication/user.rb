@@ -15,16 +15,7 @@ module UserAuthentication
     end
 
     def send_sms_code
-      message = "Gurustroy.ru code: #{self.sms_code}"
-      if Rails.env.production? || Rails.env.test?
-        # TODO сделать отправку смс отложенной
-        sms = ::SMSC.new
-        sms_response = sms.send_sms self.phone, message
-        return sms_response[1] > "0"
-      else
-        logger.info message
-        return true
-      end
+      SendSmsCodeJob.perform_later self.phone, self.sms_code
     end
 
     def verify_sms_code code

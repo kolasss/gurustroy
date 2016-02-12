@@ -79,6 +79,13 @@ class UserAuthTest < ActiveSupport::TestCase
     assert_not user.verify_sms_code user.sms_code
   end
 
+  test "method verify_sms_code should not verify sms code two times" do
+    user = users(:customer)
+    sms_code = user.sms_code
+    assert user.verify_sms_code sms_code
+    assert_not user.verify_sms_code sms_code
+  end
+
   test "class method find_by_auth_id should return correct user" do
     user = users(:customer)
     auth = authentications(:customer_auth)
