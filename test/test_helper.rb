@@ -1,7 +1,7 @@
 require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter "vendor"
-end
+end unless ENV["SKIP_COVERAGE"]
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
