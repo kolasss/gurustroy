@@ -24,6 +24,11 @@ customer_auth:
   info:
     user_agent: "Test"
 
+customer_auth2:
+  user: customer
+  info:
+    user_agent: "Test"
+
 supplier_auth:
   user: supplier
   info:

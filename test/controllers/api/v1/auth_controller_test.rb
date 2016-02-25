@@ -26,17 +26,28 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get revocate_current" do
-    require_login {get :revocate_current}
+  test "should delete destroy_token current" do
+    require_login {get :destroy_token, token: 'current'}
     login_user @user
-    get :revocate_current
+    assert_difference('@user.authentications.count', -1) do
+      delete :destroy_token, token: 'current'
+    end
     assert_response :success
   end
 
-  test "should get revocate_other" do
-    require_login {get :revocate_other}
+  test "should delete destroy_token other" do
+    require_login {get :destroy_token, token: 'other'}
     login_user @user
-    get :revocate_other
+    assert_difference('@user.authentications.count', -1) do
+      delete :destroy_token, token: 'other'
+    end
     assert_response :success
+  end
+
+  test "should show error on destroy_token with invalid parameter" do
+    login_user @user
+    delete :destroy_token, token: 'asdf'
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 end

@@ -36,15 +36,18 @@ class Api::V1::AuthController < ApplicationController
     end
   end
 
-  def revocate_current
-    @auth = current_auth_by_token
-    @auth.destroy
-    head :no_content
-  end
-
-  def revocate_other
-    @auths = current_user.authentications.where.not(id: current_auth_by_token.id)
-    @auths.destroy_all
-    head :no_content
+  # DELETE /auth/tokens/:token
+  def destroy_token
+    if params[:token] == 'current'
+      @auth = current_auth_by_token
+      @auth.destroy
+      head :no_content
+    elsif params[:token] == 'other'
+      @auths = current_user.authentications.where.not(id: current_auth_by_token.id)
+      @auths.destroy_all
+      head :no_content
+    else
+      render json: {errors: ['Invalid parameter']}, status: :unprocessable_entity
+    end
   end
 end

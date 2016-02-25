@@ -7,28 +7,28 @@ module UserAuthentication
   module Controller
     extend ActiveSupport::Concern
 
-    def require_login
-      if !logged_in?
-        user_not_authenticated
-      end
-    end
-
-    def logged_in?
-      !!current_user
-    end
-
-    def current_user
-      unless defined?(@current_user)
-        login_from_token
-      end
-      @current_user
-    end
-
-    def current_auth_by_token
-      current_user.authentications.find decoded_auth_token[:auth_id]
-    end
-
     private
+
+      def require_login
+        if !logged_in?
+          user_not_authenticated
+        end
+      end
+
+      def logged_in?
+        !!current_user
+      end
+
+      def current_user
+        unless defined?(@current_user)
+          login_from_token
+        end
+        @current_user
+      end
+
+      def current_auth_by_token
+        current_user.authentications.find decoded_auth_token[:auth_id]
+      end
 
       def login_from_token
         user_not_authenticated unless auth_id_included_in_auth_token?

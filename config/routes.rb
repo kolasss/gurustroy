@@ -4,12 +4,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       # user auth
-      namespace :auth do
-        get  :request_sms
-        post :verify
-        get  :revocate_current
-        get  :revocate_other
-      end
+      get     'auth', to: 'auth#request_sms'
+      post    'auth', to: 'auth#verify'
+      delete  'auth/tokens/:token', to: 'auth#destroy_token'
 
       resources :units, except: [:new, :edit, :show]
       resources :categories, except: [:new, :edit, :show] do
