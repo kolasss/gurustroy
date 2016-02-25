@@ -49,5 +49,9 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
     delete :destroy_token, token: 'asdf'
     assert_response :unprocessable_entity
     assert_match 'errors', response.body
+
+    delete :destroy_token
+    assert_response :unprocessable_entity
+    assert_match 'errors', response.body
   end
 end

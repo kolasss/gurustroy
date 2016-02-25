@@ -38,7 +38,7 @@ class Api::V1::AuthController < ApplicationController
     end
   end
 
-  # DELETE /auth/tokens/:token
+  # DELETE /auth/tokens
   def destroy_token
     if params[:token] == 'current'
       @auth = current_auth_by_token

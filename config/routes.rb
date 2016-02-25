@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       # user auth
       get     'auth', to: 'auth#request_sms'
       post    'auth', to: 'auth#verify'
-      delete  'auth/tokens/:token', to: 'auth#destroy_token'
+      delete  'auth/tokens', to: 'auth#destroy_token'
 
       resources :units, except: [:new, :edit, :show]
       resources :categories, except: [:new, :edit, :show] do
