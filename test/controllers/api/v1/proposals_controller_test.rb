@@ -78,9 +78,9 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
   end
 
   test "should cancel proposal" do
-    require_login {get :cancel, id: @proposal}
+    require_login {delete :cancel, id: @proposal}
     login_user @supplier
-    get :cancel, id: @proposal
+    delete :cancel, id: @proposal
 
     assert_response 204
   end

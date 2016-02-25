@@ -22,13 +22,13 @@ Rails.application.routes.draw do
       end
       resources :orders, except: [:new, :edit] do
         member do
-          get :cancel
-          get :finish
+          delete :cancel
+          put :finish
         end
         resources :proposals, only: [:index, :create]
       end
       resources :proposals, only: [:show, :update, :destroy] do
-        get :cancel, on: :member
+        delete :cancel, on: :member
       end
     end
   end

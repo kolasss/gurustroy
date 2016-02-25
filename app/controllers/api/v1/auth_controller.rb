@@ -2,6 +2,7 @@ class Api::V1::AuthController < ApplicationController
   skip_before_action :require_login, only: [:request_sms, :verify]
   before_action :skip_authorization
 
+  # GET /auth
   def request_sms
     phone = params[:user_phone]
     @user = User.find_or_create_by(phone: phone) do |user|
@@ -17,6 +18,7 @@ class Api::V1::AuthController < ApplicationController
     end
   end
 
+  # POST /auth
   def verify
     phone = params[:user_phone]
     code = params[:user_code]

@@ -27,7 +27,7 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
   end
 
   test "should delete destroy_token current" do
-    require_login {get :destroy_token, token: 'current'}
+    require_login {delete :destroy_token, token: 'current'}
     login_user @user
     assert_difference('@user.authentications.count', -1) do
       delete :destroy_token, token: 'current'
@@ -36,7 +36,7 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
   end
 
   test "should delete destroy_token other" do
-    require_login {get :destroy_token, token: 'other'}
+    require_login {delete :destroy_token, token: 'other'}
     login_user @user
     assert_difference('@user.authentications.count', -1) do
       delete :destroy_token, token: 'other'
