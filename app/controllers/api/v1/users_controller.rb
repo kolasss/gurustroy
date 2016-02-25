@@ -50,18 +50,21 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # GET /users/1/orders
   def orders
     limit = set_limit_for_query
     @orders = @user.orders.by_created.includes(:photo).limit(limit)
     @orders = @orders.offset(params[:offset]) if params[:offset].present?
   end
 
+  # GET /users/1/proposals
   def proposals
     limit = set_limit_for_query
     @proposals = @user.proposals.by_created.includes(:photo).limit(limit)
     @proposals = @proposals.offset(params[:offset]) if params[:offset].present?
   end
 
+  # PUT /users/1/proposals
   def change_type
     @user = @user.change_type params[:user_type]
 
