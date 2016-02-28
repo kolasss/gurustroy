@@ -2,6 +2,7 @@ class Api::V1::AuthController < ApplicationController
   skip_before_action :require_login, only: [:request_sms, :verify]
   before_action :skip_authorization
 
+  # GET /auth
   def request_sms
     phone = params[:user_phone]
     @user = User.find_or_create_by(phone: phone) do |user|
@@ -17,6 +18,7 @@ class Api::V1::AuthController < ApplicationController
     end
   end
 
+  # POST /auth
   def verify
     phone = params[:user_phone]
     code = params[:user_code]
@@ -36,15 +38,18 @@ class Api::V1::AuthController < ApplicationController
     end
   end
 
-  def revocate_current
-    @auth = current_auth_by_token
-    @auth.destroy
-    head :no_content
-  end
-
-  def revocate_other
-    @auths = current_user.authentications.where.not(id: current_auth_by_token.id)
-    @auths.destroy_all
-    head :no_content
+  # DELETE /auth/tokens
+  def destroy_token
+    if params[:token] == 'current'
+      @auth = current_auth_by_token
+      @auth.destroy
+      head :no_content
+    elsif params[:token] == 'other'
+      @auths = current_user.authentications.where.not(id: current_auth_by_token.id)
+      @auths.destroy_all
+      head :no_content
+    else
+      render json: {errors: ['Invalid parameter']}, status: :unprocessable_entity
+    end
   end
 end

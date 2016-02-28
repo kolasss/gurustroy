@@ -51,6 +51,7 @@ class Api::V1::OrdersController < ApplicationController
     end
   end
 
+  # DELETE /orders/1/cancel
   def cancel
     if @order.cancel!
       head :no_content
@@ -59,6 +60,7 @@ class Api::V1::OrdersController < ApplicationController
     end
   end
 
+  # PUT /orders/1/finish
   def finish
     if @order.finish! params[:proposal_id]
       head :no_content

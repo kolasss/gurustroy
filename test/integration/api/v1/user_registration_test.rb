@@ -7,24 +7,24 @@ class UserRegistrationTest < ActionDispatch::IntegrationTest
     # with wrong phone number
     user_phone = '1234545'
     user_type = 'Customer'
-    get "/api/v1/auth/request_sms?user_phone=#{user_phone}&user_type=#{user_type}"
+    get "/api/v1/auth?user_phone=#{user_phone}&user_type=#{user_type}"
     assert_response :unprocessable_entity
     assert_match 'errors', response.body
 
     # with right phone number
     user_phone = '71234267890'
-    get "/api/v1/auth/request_sms?user_phone=#{user_phone}&user_type=#{user_type}"
+    get "/api/v1/auth?user_phone=#{user_phone}&user_type=#{user_type}"
     assert_response :no_content
 
     sms_code = assigns(:user).sms_code
 
     # wrong sms code
-    post '/api/v1/auth/verify', user_phone: user_phone, user_code: 123
+    post '/api/v1/auth', user_phone: user_phone, user_code: 123
     assert_response :unauthorized
     assert_match 'errors', response.body
 
     # correct sms code
-    post '/api/v1/auth/verify', user_phone: user_phone, user_code: sms_code
+    post '/api/v1/auth', user_phone: user_phone, user_code: sms_code
     assert_response :success
     assert_match 'auth_token', response.body
 

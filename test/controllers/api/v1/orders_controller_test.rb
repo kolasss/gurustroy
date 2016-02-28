@@ -85,22 +85,22 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
   end
 
   test "should cancel order" do
-    require_login {get :cancel, id: @order}
+    require_login {delete :cancel, id: @order}
     login_user @customer
-    get :cancel, id: @order
+    delete :cancel, id: @order
     assert_response 204
   end
 
   test "should finish order" do
-    require_login {get :finish, id: @order, proposal_id: @order.proposals.first}
+    require_login {put :finish, id: @order, proposal_id: @order.proposals.first}
     login_user @customer
-    get :finish, id: @order, proposal_id: @order.proposals.first
+    put :finish, id: @order, proposal_id: @order.proposals.first
     assert_response 204
   end
 
   test "should show error on finish order" do
     login_user @customer
-    get :finish, id: @order, proposal_id: 'asd'
+    put :finish, id: @order, proposal_id: 'asd'
     assert_response :unprocessable_entity
     assert_match 'errors', response.body
   end

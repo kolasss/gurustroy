@@ -108,10 +108,12 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:proposals)
   end
 
-  test "should get change_type" do
-    require_login {get :change_type, id: @user, user_type: 'Admin', format: :json}
+  test "should put change_type" do
+    require_login {put :change_type, id: @user, user_type: 'Admin', format: :json}
     login_user @admin
-    get :change_type, id: @user, user_type: 'Admin', format: :json
+    new_type = 'Admin'
+    put :change_type, id: @user, user_type: new_type, format: :json
     assert_response :success
+    assert_equal new_type, User.find(@user.id).type
   end
 end

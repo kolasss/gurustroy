@@ -50,6 +50,7 @@ class Api::V1::ProposalsController < ApplicationController
     end
   end
 
+  # DELETE /proposals/1/cancel
   def cancel
     if @proposal.deleted!
       head :no_content
