@@ -27,7 +27,7 @@ class Api::V1::UnitsController < ApplicationController
     @unit = Unit.find(params[:id])
 
     if @unit.update(unit_params)
-      head :no_content
+      render :create, status: :ok
     else
       render json: {errors: @unit.errors}, status: :unprocessable_entity
     end

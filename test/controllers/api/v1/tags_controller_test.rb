@@ -39,12 +39,12 @@ class Api::V1::TagsControllerTest < ActionController::TestCase
   end
 
   test "should update tag" do
-    require_login {put :update, id: @tag}
+    require_login {put :update, id: @tag, format: :json}
     login_user @admin
     put :update, id: @tag, tag: {
       name: @tag.name
-    }
-    assert_response 204
+    }, format: :json
+    assert_response :ok
   end
 
   test "should show error on update tag" do

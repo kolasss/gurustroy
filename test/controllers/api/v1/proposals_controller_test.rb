@@ -47,13 +47,13 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
   end
 
   test "should update proposal" do
-    require_login {put :update, id: @proposal}
+    require_login {put :update, id: @proposal, format: :json}
     login_user @supplier
     put :update, id: @proposal, proposal: {
       description: @proposal.description,
       price: @proposal.price
-    }
-    assert_response 204
+    }, format: :json
+    assert_response :ok
   end
 
   test "should show error on update proposal" do

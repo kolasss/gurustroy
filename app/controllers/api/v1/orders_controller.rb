@@ -35,7 +35,7 @@ class Api::V1::OrdersController < ApplicationController
     @order = Order.find(params[:id])
 
     if @order.update(order_params)
-      head :no_content
+      render :show, status: :ok
     else
       render json: {errors: @order.errors}, status: :unprocessable_entity
     end

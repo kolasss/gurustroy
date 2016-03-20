@@ -34,7 +34,7 @@ class Api::V1::ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
 
     if @proposal.update(proposal_params)
-      head :no_content
+      render :show, status: :ok
     else
       render json: {errors: @proposal.errors}, status: :unprocessable_entity
     end

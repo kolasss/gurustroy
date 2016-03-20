@@ -35,10 +35,10 @@ class Api::V1::UnitsControllerTest < ActionController::TestCase
   end
 
   test "should update unit" do
-    require_login {put :update, id: @unit}
+    require_login {put :update, id: @unit, format: :json}
     login_user @admin
-    put :update, id: @unit, unit: { name: @unit.name }
-    assert_response 204
+    put :update, id: @unit, unit: { name: @unit.name }, format: :json
+    assert_response :ok
   end
 
   test "should show error on update unit" do

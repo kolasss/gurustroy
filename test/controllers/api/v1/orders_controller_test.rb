@@ -51,7 +51,7 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
   end
 
   test "should update order" do
-    require_login {put :update, id: @order}
+    require_login {put :update, id: @order, format: :json}
     login_user @customer
     put :update, id: @order, order: {
       category_id: @order.category_id,
@@ -59,8 +59,8 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
       price: @order.price,
       quantity: @order.quantity,
       unit_id: @order.unit_id
-    }
-    assert_response 204
+    }, format: :json
+    assert_response :ok
   end
 
   test "should show error on update order" do

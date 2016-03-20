@@ -31,7 +31,7 @@ class Api::V1::CategoriesController < ApplicationController
     @category = Category.find(params[:id])
 
     if @category.update(category_params)
-      head :no_content
+      render :create, status: :ok
     else
       render json: {errors: @category.errors}, status: :unprocessable_entity
     end

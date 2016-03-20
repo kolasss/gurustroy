@@ -44,10 +44,10 @@ class Api::V1::CategoriesControllerTest < ActionController::TestCase
   end
 
   test "should update category" do
-    require_login {put :update, id: @category}
+    require_login {put :update, id: @category, format: :json}
     login_user @admin
-    put :update, id: @category, category: { name: @category.name }
-    assert_response 204
+    put :update, id: @category, category: { name: @category.name }, format: :json
+    assert_response :ok
   end
 
   test "should show error on update category" do

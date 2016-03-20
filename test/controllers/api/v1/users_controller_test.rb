@@ -55,10 +55,9 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     put :update, id: @user, user: {
       company: @user.company,
       name: @user.name,
-      phone: @user.phone,
-      type: @user.type
-    }
-    assert_response 204
+      phone: @user.phone
+    }, format: :json
+    assert_response :ok
   end
 
   test "should show error on update user" do
@@ -113,6 +112,15 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     login_user @admin
     new_type = 'Admin'
     put :change_type, id: @user, user_type: new_type, format: :json
+    assert_response :success
+    assert_equal new_type, User.find(@user.id).type
+  end
+
+  test "should put change_my_type" do
+    require_login {put :change_my_type, user_type: 'Customer', format: :json}
+    login_user @user
+    new_type = 'Supplier'
+    put :change_my_type, user_type: new_type, format: :json
     assert_response :success
     assert_equal new_type, User.find(@user.id).type
   end

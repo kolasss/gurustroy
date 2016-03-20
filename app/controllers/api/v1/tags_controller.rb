@@ -28,7 +28,7 @@ class Api::V1::TagsController < ApplicationController
     @tag = Tag.find(params[:id])
 
     if @tag.update(tag_params)
-      head :no_content
+      render :create, status: :ok
     else
       render json: {errors: @tag.errors}, status: :unprocessable_entity
     end
