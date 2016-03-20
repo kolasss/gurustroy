@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserRegistrationTest < ActionDispatch::IntegrationTest
+class UsersRegistrationTest < ActionDispatch::IntegrationTest
 
   test "registration and setup user info" do
     stub_smsc_request

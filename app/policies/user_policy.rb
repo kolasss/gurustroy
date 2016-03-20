@@ -31,4 +31,8 @@ class UserPolicy < ApplicationPolicy
   def change_type?
     index?
   end
+
+  def change_my_type?
+    user.supplier? || user.customer?
+  end
 end

@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, except: [:index, :create]
+  before_action :set_user, except: [:index, :create, :change_my_type]
 
   # GET /users
   # GET /users.json
@@ -64,7 +64,7 @@ class Api::V1::UsersController < ApplicationController
     @proposals = @proposals.offset(params[:offset]) if params[:offset].present?
   end
 
-  # PUT /users/1/proposals
+  # PUT /users/1/change_type
   def change_type
     @user = @user.change_type params[:user_type]
 
@@ -72,6 +72,23 @@ class Api::V1::UsersController < ApplicationController
       render :show, status: :ok
     else
       render json: {errors: @user.errors}, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /users/change_my_type
+  def change_my_type
+    authorize User
+    user_type = params[:user_type]
+    if User::PUBLIC_USER_TYPES.include? user_type
+      @user = current_user.change_type params[:user_type]
+
+      if @user.errors.empty?
+        render :show, status: :ok
+      else
+        render json: {errors: @user.errors}, status: :unprocessable_entity
+      end
+    else
+      render json: {errors: "Invalid user's type"}, status: :unprocessable_entity
     end
   end
 
