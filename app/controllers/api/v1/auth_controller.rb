@@ -4,7 +4,8 @@ class Api::V1::AuthController < ApplicationController
 
   # GET /auth
   def request_sms
-    phone = params[:user_phone]
+    # убираем все символы кроме цифр
+    phone = PhoneUtil.format params[:user_phone]
     @user = User.find_or_create_by(phone: phone) do |user|
       user_type = params[:user_type]
       if User::PUBLIC_USER_TYPES.include? user_type

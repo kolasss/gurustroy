@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
     end
 
     def format_phone
-      self.phone.gsub!(/[^0-9]/i, '') if self.phone.present?
+      self.phone = PhoneUtil.format(self.phone) if self.phone.present?
     end
 
     def after_type_change

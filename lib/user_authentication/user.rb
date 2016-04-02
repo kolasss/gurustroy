@@ -9,12 +9,13 @@ module UserAuthentication
     end
 
     def request_sms_code
-      if sms_code_not_expired
-        errors.add :sms_code, 'not expired'
-        return false
-      else
+      # проверка на как давно отсылалась смс, чтобы не спамили
+      if can_send_new_sms_code?
         generate_sms_code
         send_sms_code
+      else
+        errors.add :sms_code, 'not expired'
+        return false
       end
     end
 
@@ -44,6 +45,16 @@ module UserAuthentication
 
       def sms_code_not_expired
         sms_code_expires_at.present? && sms_code_expires_at > Time.current
+      end
+
+      def can_send_new_sms_code?
+        if sms_code_expires_at.present?
+          negative_time_out_period = (Rails.configuration.sms_code_expires_in_minutes * 0.33).minutes
+          time_out_time = sms_code_expires_at - negative_time_out_period
+          return time_out_time < Time.current
+        else
+          return true
+        end
       end
   end
 end

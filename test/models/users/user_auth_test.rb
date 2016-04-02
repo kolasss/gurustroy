@@ -76,10 +76,14 @@ class UserAuthTest < ActiveSupport::TestCase
     @user.request_sms_code
     sms_code = @user.sms_code
     sms_code_expires_at = @user.sms_code_expires_at
-    @user.update_attribute :sms_code_expires_at, Time.current
-    assert @user.request_sms_code
-    assert_not_equal sms_code, @user.reload.sms_code
-    assert_not_equal sms_code_expires_at, @user.sms_code_expires_at
+
+    # попробовать запросить код через 15 минут
+    future_time = Time.current + 15.minutes
+    travel_to future_time do
+      assert @user.request_sms_code
+      assert_not_equal sms_code, @user.reload.sms_code
+      assert_not_equal sms_code_expires_at, @user.sms_code_expires_at
+    end
   end
 
   test "method verify_sms_code should verify sms code" do
