@@ -48,13 +48,15 @@ module UserAuthentication
       end
 
       def can_send_new_sms_code?
-        if sms_code_expires_at.present?
-          negative_time_out_period = (Rails.configuration.sms_code_expires_in_minutes * 0.33).minutes
-          time_out_time = sms_code_expires_at - negative_time_out_period
-          return time_out_time < Time.current
-        else
-          return true
-        end
+        # if sms_code_expires_at.present?
+        #   negative_time_out_period = (Rails.configuration.sms_code_expires_in_minutes * 0.33).minutes
+        #   time_out_time = sms_code_expires_at - negative_time_out_period
+        #   return time_out_time < Time.current
+        # else
+        #   return true
+        # end
+
+        return true # TODO убрать, это временно для разработки приложения
       end
   end
 end
