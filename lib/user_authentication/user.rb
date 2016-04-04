@@ -20,7 +20,7 @@ module UserAuthentication
     end
 
     def verify_sms_code code
-      valid = self.sms_code.present? && self.sms_code == code && sms_code_not_expired
+      valid = self.sms_code.present? && self.sms_code == code.to_s && sms_code_not_expired
       update_attributes(sms_code: nil, sms_code_expires_at:nil) if valid
       return valid
     end

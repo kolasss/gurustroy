@@ -29,11 +29,7 @@ class Api::V1::AuthController < ApplicationController
       info = {user_agent: request.user_agent}
       auth = @user.authentications.create info: info
       # render token
-      response = {
-        user_id: @user.id,
-        auth_token: AuthToken.encode({ auth_id: auth.id })
-      }
-      render json: response
+      @auth_token = AuthToken.encode({ auth_id: auth.id })
     else
       render json: {errors: ['Invalid phone/code or code expired']}, status: :unauthorized
     end

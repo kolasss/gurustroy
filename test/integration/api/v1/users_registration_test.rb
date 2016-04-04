@@ -29,7 +29,7 @@ class UsersRegistrationTest < ActionDispatch::IntegrationTest
     assert_match 'auth_token', response.body
 
     user_info = JSON.parse(response.body)
-    user_id = user_info['user_id']
+    user_id = user_info['id']
     auth_token = user_info['auth_token']
 
     # with wrong token
