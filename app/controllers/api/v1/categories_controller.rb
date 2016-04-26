@@ -5,6 +5,7 @@ class Api::V1::CategoriesController < ApplicationController
   # GET /categories.json
   def index
     authorize Category
+    @categories_version = Category.version
     if params[:q].present?
       @categories = Category.find_by_tag_name params[:q]
     else

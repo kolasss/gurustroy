@@ -12,4 +12,8 @@ class Unit < ActiveRecord::Base
   has_many :orders, :dependent => :restrict_with_error
 
   validates :name, presence: true, uniqueness: true
+
+  def Unit.version
+    Unit.maximum(:updated_at).to_i
+  end
 end

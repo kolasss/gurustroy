@@ -11,6 +11,7 @@ class Api::V1::CategoriesControllerTest < ActionController::TestCase
     login_user @admin
     get :index, format: :json
     assert_response :success
+    assert_not_nil assigns(:categories_version)
     assert_not_nil assigns(:categories)
   end
 

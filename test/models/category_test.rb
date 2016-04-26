@@ -68,4 +68,10 @@ class CategoryTest < ActiveSupport::TestCase
     assert categories.include? category
     assert_not categories.include? category_not
   end
+
+  test "method version" do
+    version = Category.version
+    last_update_version = Category.maximum(:updated_at).to_i
+    assert_equal version, last_update_version
+  end
 end

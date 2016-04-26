@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resources :proposals, only: [:show, :update, :destroy] do
         delete :cancel, on: :member
       end
+      resources :versions, only: [:index]
     end
   end
 end

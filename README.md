@@ -26,6 +26,7 @@ https://mozilla.github.io/server-side-tls/ssl-config-generator/
 
 Не добавлять add_header Strict-Transport-Security max-age=15768000; Рэилс сам добавляет такой хедер, если стоит force_ssl=true.
 
+- sudo nginx -s reload
 
 ## deploy
 

@@ -18,4 +18,8 @@ class Category < ActiveRecord::Base
     name = name.mb_chars.downcase.to_s
     Category.joins(:tags).merge(Tag.search_by_name name)
   end
+
+  def Category.version
+    Category.maximum(:updated_at).to_i
+  end
 end

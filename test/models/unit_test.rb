@@ -45,4 +45,10 @@ class UnitTest < ActiveSupport::TestCase
     order.save
     assert_not @unit.destroy
   end
+
+  test "method version" do
+    version = Unit.version
+    last_update_version = Unit.maximum(:updated_at).to_i
+    assert_equal version, last_update_version
+  end
 end

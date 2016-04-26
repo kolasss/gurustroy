@@ -5,6 +5,7 @@ class Api::V1::UnitsController < ApplicationController
   # GET /units.json
   def index
     authorize Unit
+    @units_version = Unit.version
     @units = Unit.all
   end
 
