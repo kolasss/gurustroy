@@ -13,6 +13,7 @@ class Api::V1::CategoriesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:categories_version)
     assert_not_nil assigns(:categories)
+    assert_not_empty response.body
   end
 
   test "should search by tags in index" do

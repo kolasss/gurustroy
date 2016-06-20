@@ -12,6 +12,7 @@ class Api::V1::OrdersControllerTest < ActionController::TestCase
     get :index, format: :json
     assert_response :success
     assert_not_nil assigns(:orders)
+    assert_not_empty response.body
   end
 
   test "should create order" do

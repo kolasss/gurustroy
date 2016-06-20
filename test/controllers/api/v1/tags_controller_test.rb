@@ -12,6 +12,7 @@ class Api::V1::TagsControllerTest < ActionController::TestCase
     get :index, category_id: categories(:instrumenti), format: :json
     assert_response :success
     assert_not_nil assigns(:tags)
+    assert_not_empty response.body
   end
 
   test "should create tag" do

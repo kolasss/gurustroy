@@ -13,6 +13,7 @@ class Api::V1::UnitsControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:units_version)
     assert_not_nil assigns(:units)
+    assert_not_empty response.body
   end
 
   test "should create unit" do

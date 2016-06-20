@@ -9,11 +9,13 @@ class Api::V1::ProposalsController < ApplicationController
     limit = set_limit_for_query
     @proposals = @order.proposals.by_created.includes(:photo).limit(limit)
     @proposals = @proposals.offset(params[:offset]) if params[:offset].present?
+    render
   end
 
   # GET /proposals/1
   # GET /proposals/1.json
   def show
+    render
   end
 
   # POST /orders/1/proposals

@@ -8,11 +8,13 @@ class Api::V1::UsersController < ApplicationController
     limit = set_limit_for_query
     @users = User.by_created.limit(limit)
     @users = @users.offset(params[:offset]) if params[:offset].present?
+    render
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    render
   end
 
   # POST /users
@@ -55,6 +57,7 @@ class Api::V1::UsersController < ApplicationController
     limit = set_limit_for_query
     @orders = @user.orders.by_created.includes(:photo).limit(limit)
     @orders = @orders.offset(params[:offset]) if params[:offset].present?
+    render
   end
 
   # GET /users/1/proposals
@@ -62,6 +65,7 @@ class Api::V1::UsersController < ApplicationController
     limit = set_limit_for_query
     @proposals = @user.proposals.by_created.includes(:photo).limit(limit)
     @proposals = @proposals.offset(params[:offset]) if params[:offset].present?
+    render
   end
 
   # PUT /users/1/change_type

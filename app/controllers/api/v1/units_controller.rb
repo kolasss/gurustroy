@@ -7,6 +7,7 @@ class Api::V1::UnitsController < ApplicationController
     authorize Unit
     @units_version = Unit.version
     @units = Unit.all
+    render
   end
 
   # POST /units

@@ -1,1 +1,1 @@
-json.merge! tag.attributes
+json.merge! tag.as_json

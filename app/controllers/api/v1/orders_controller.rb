@@ -9,11 +9,13 @@ class Api::V1::OrdersController < ApplicationController
     @orders = Order.by_created.includes(:photo).limit(limit)
     @orders = @orders.offset(params[:offset]) if params[:offset].present?
     @orders = @orders.where(category_id: params[:category_ids]) if params[:category_ids].present?
+    render
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
+    render
   end
 
   # POST /orders

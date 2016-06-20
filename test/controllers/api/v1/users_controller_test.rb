@@ -12,6 +12,7 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     get :index, format: :json
     assert_response :success
     assert_not_nil assigns(:users)
+    assert_not_empty response.body
   end
 
   test "should show user" do
@@ -19,6 +20,7 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
     login_user @admin
     get :show, id: @user, format: :json
     assert_response :success
+    assert_not_empty response.body
   end
 
   test "should create user" do

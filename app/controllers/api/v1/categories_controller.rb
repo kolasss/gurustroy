@@ -11,6 +11,7 @@ class Api::V1::CategoriesController < ApplicationController
     else
       @categories = Category.all
     end
+    render
   end
 
   # POST /categories

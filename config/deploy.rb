@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.5.0'
 
 set :application, 'gurustroy_app'
 set :repo_url, 'git@github.com:kolasss/gurustroy.git'
@@ -49,4 +49,4 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 # rbenv settings
 set :rbenv_type, :user # or :system, depends on your rbenv setup
-set :rbenv_ruby, '2.3.0'
+set :rbenv_ruby, '2.3.1'

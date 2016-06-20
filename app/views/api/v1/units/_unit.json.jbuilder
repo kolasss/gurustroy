@@ -1,1 +1,1 @@
-json.merge! unit.attributes
+json.merge! unit.as_json

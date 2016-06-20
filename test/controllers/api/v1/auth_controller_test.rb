@@ -25,6 +25,7 @@ class Api::V1::AuthControllerTest < ActionController::TestCase
   test "should post verify" do
     post :verify, user_phone: @user.phone, user_code: @user.sms_code, format: :json
     assert_response :success
+    assert_not_empty response.body
   end
 
   test "should delete destroy_token current" do

@@ -1,1 +1,1 @@
-json.merge! category.attributes
+json.merge! category.as_json

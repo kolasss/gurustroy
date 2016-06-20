@@ -12,5 +12,6 @@ class Api::V1::VersionsControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:units_version)
     assert_not_nil assigns(:categories_version)
+    assert_not_empty response.body
   end
 end

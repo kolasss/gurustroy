@@ -12,6 +12,7 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
     get :index, order_id: orders(:order_one), format: :json
     assert_response :success
     assert_not_nil assigns(:proposals)
+    assert_not_empty response.body
   end
 
   test "should create proposal" do
@@ -44,6 +45,7 @@ class Api::V1::ProposalsControllerTest < ActionController::TestCase
     login_user @supplier
     get :show, id: @proposal, format: :json
     assert_response :success
+    assert_not_empty response.body
   end
 
   test "should update proposal" do

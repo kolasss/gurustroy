@@ -7,6 +7,7 @@ class Api::V1::TagsController < ApplicationController
   def index
     authorize Tag
     @tags = @category.tags.all
+    render
   end
 
   # POST /tags
