@@ -6,7 +6,7 @@ class Api::V1::OrdersController < ApplicationController
   def index
     authorize Order
     limit = set_limit_for_query
-    @orders = Order.by_created.includes(:photo).limit(limit)
+    @orders = Order.by_created.includes(:photo, :user).limit(limit)
     @orders = @orders.offset(params[:offset]) if params[:offset].present?
     @orders = @orders.where(category_id: params[:category_ids]) if params[:category_ids].present?
     render
